@@ -31,6 +31,10 @@ Route::get('/concert', [
     ConcertController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('concert.index');
 
+Route::get('/concert/{concert:name}', [
+    ConcertController::class, 'show'
+])->middleware(['auth', 'verified'])->name('concert.detail');
+
 // -------- Middelware : Auth ---------- //
 
 Route::middleware('auth')->group(function () {
