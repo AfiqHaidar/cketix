@@ -21,5 +21,6 @@
 
         @endforeach
 
+    
     </div>
 </x-app-layout>
