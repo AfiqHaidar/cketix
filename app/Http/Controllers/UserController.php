@@ -53,7 +53,7 @@ class UserController extends Controller
             ->join('venues', 'catagories.venue_id', '=', 'venues.id')
             ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
             ->select('tickets.tcode', 'concerts.name as concert_name', 'concert_details.date', 'venues.name as venue_name')
-            ->where('transactions.user_id', 2)
+            ->where('transactions.user_id', $user->id)
             ->get();
 
         return view('user.ticket', [
