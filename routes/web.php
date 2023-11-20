@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,16 @@ Route::post('/concert/{detail:date}/buy', [
 Route::post('/concert/{detail:date}/buy/{category:id}', [
     TransactionController::class, 'store'
 ])->middleware(['auth', 'verified'])->name('ticket.create');
+
+// --------- Users -------------- //
+
+Route::get('/transaction-history', [
+    UserController::class, 'transactionHistory'
+])->middleware(['auth', 'verified'])->name('user.transaction');
+
+Route::get('/transaction-history/{transaction:id}', [
+    UserController::class, 'transactionReceipt'
+])->middleware(['auth', 'verified'])->name('user.receipt');
 
 // -------- Middelware : Auth ---------- //
 
