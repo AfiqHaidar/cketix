@@ -23,6 +23,10 @@
                     <x-nav-link :href="route('user.transaction')" :active="request()->routeIs('user.transaction')">
                         {{ __('Transaction History') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('user.ticket')" :active="request()->routeIs('user.ticket')">
+                        {{ __('Tickets') }}
+                    </x-nav-link>
                 </div>
             </div>
 

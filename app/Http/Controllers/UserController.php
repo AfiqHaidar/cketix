@@ -40,4 +40,23 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function ticket()
+    {
+        $user = Auth::user();
+
+        $result = DB::table('transactions')
+            ->join('tickets', 'transactions.id', '=', 'tickets.transaction_id')
+            ->join('catagories', 'tickets.catagory_id', '=', 'catagories.id')
+            ->join('concert_details', 'catagories.concert_detail_id', '=', 'concert_details.id')
+            ->join('venues', 'catagories.venue_id', '=', 'venues.id')
+            ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
+            ->select('tickets.tcode', 'concerts.name as concert_name', 'concert_details.date', 'venues.name as venue_name')
+            ->where('transactions.user_id', 2)
+            ->get();
+
+        return view('user.ticket', [
+            'tickets' => $result,
+        ]);
+    }
 }
