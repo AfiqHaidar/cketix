@@ -43,7 +43,7 @@ Route::post('/concert/{detail:date}/buy', [
     TransactionController::class, 'index'
 ])->middleware(['auth', 'verified'])->name('ticket.transaction');
 
-Route::post('/concert/{detail:date}/buy/{catagory:id}', [
+Route::post('/concert/{detail:date}/buy/{category:id}', [
     TransactionController::class, 'store'
 ])->middleware(['auth', 'verified'])->name('ticket.create');
 

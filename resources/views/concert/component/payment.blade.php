@@ -1,7 +1,7 @@
 
 
   <!-- Main modal -->
-  <div id=" {{ $cat->id }} " data-modal-backdrop=" {{ $cat->id }} " tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div id="{{$cat->id}}" data-modal-backdrop="{{$cat->id}}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -10,7 +10,7 @@
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Choose payment for {{ $ticket }} at {{ $cat->code }}
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide=" {{ $cat->id }} ">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="{{$cat->id}}">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -18,16 +18,17 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form method="POST" action={{  route('ticket.create', ['detail' => $detail, 'catagory' => $cat ]) }}#"  enctype="multipart/form-data">
+            <form method="POST" action="{{route('ticket.create', ['detail' => $detail, 'category' => $cat ])}}"  enctype="multipart/form-data">
                 @csrf
                 <div class="p-6 space-y-6">
                         <div class="mb-6">
                             <label for="payment-method" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Payment</label>
-                            <select id="payment-method" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select name="payment-method" id="payment-method" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 @foreach ($payment as $method)
                                     <option value="{{ $method->id }}">{{ $method->payment }}</option>
                                 @endforeach
                             </select>
+                            <input type="hidden" id="ticket" name="ticket" value={{ $ticket }} >
                         </div>
                 </div>
                 <!-- Modal footer -->

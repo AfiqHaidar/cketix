@@ -21,8 +21,8 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function store(ConcertDetail $detail, Catagory $cat, Request $request)
+    public function store(ConcertDetail $detail, Catagory $category, Request $request)
     {
-        return $cat->date;
+        dd($request->ticket);
     }
 }
