@@ -45,6 +45,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+
         $result = DB::table('transactions')
             ->join('tickets', 'transactions.id', '=', 'tickets.transaction_id')
             ->join('catagories', 'tickets.catagory_id', '=', 'catagories.id')

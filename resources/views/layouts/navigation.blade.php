@@ -27,6 +27,7 @@
                     <x-nav-link :href="route('user.ticket')" :active="request()->routeIs('user.ticket')">
                         {{ __('Tickets') }}
                     </x-nav-link>
+                    
                 </div>
             </div>
 
