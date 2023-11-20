@@ -7,6 +7,7 @@
 
     <div class="py-12">
         @foreach ($catagories as $cat)
+            @if ($cat->seat >= $ticket)
 
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-2">
                 <a href="#"  data-modal-target="{{ $cat->id }}" data-modal-toggle="{{ $cat->id }}" class="block text-white " type="button">
@@ -19,6 +20,7 @@
             </div>
             @include('concert.component.payment');
 
+            @endif
         @endforeach
     </div>
     
