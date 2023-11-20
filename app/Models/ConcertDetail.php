@@ -23,4 +23,9 @@ class ConcertDetail extends Model
     {
         return $this->belongsTo(Concert::class);
     }
+
+    public function categories()
+    {
+        return $this->hasMany(Catagory::class);
+    }
 }

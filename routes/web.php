@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ConcertController;
+use App\Http\Controllers\TransactionController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +25,34 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// --------- Concert -------------- //
+
+// concert index
+Route::get('/concert', [
+    ConcertController::class, 'index'
+])->middleware(['auth', 'verified'])->name('concert.index');
+
+Route::get('/concert/{concert:name}', [
+    ConcertController::class, 'show'
+])->middleware(['auth', 'verified'])->name('concert.detail');
+
+// --------- Transaction -------------- //
+
+// concert index
+Route::post('/concert/{detail:date}/buy', [
+    TransactionController::class, 'index'
+])->middleware(['auth', 'verified'])->name('ticket.transaction');
+
+Route::post('/concert/{detail:date}/buy/{category:id}', [
+    TransactionController::class, 'store'
+])->middleware(['auth', 'verified'])->name('ticket.create');
+
+// -------- Middelware : Auth ---------- //
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
