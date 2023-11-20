@@ -58,6 +58,12 @@ Route::get('/transaction-history/{transaction:id}', [
     UserController::class, 'transactionReceipt'
 ])->middleware(['auth', 'verified'])->name('user.receipt');
 
+Route::get('/ticket', [
+    UserController::class, 'ticket'
+])->middleware(['auth', 'verified'])->name('user.ticket');
+
+
+
 // -------- Middelware : Auth ---------- //
 
 Route::middleware('auth')->group(function () {
