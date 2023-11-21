@@ -37,6 +37,10 @@ Route::get('/concert/{concert:name}', [
     ConcertController::class, 'show'
 ])->middleware(['auth', 'verified'])->name('concert.detail');
 
+Route::get('/{guest}', [
+    ConcertController::class, 'guest'
+])->middleware(['auth', 'verified'])->name('concert.guest');
+
 // --------- Transaction -------------- //
 
 // concert index

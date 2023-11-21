@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Concert;
 use App\Models\ConcertDetail;
+use App\Models\Guest;
 
 class ConcertController extends Controller
 {
@@ -28,10 +29,19 @@ class ConcertController extends Controller
             ->select('guest_details.*', 'guests.name as guest_name')
             ->get();
 
-        return view('Concert/Detail', [
+        return view('concert.detail', [
             'concert' => $concert->name,
             'concertDetails' => $details,
             'guestDetails' => $guest,
+        ]);
+    }
+
+    public function guest($guest)
+    {
+        $guest = Guest::where('name', $guest)->first();
+
+        return view('concert.guest', [
+            'guest' => $guest,
         ]);
     }
 }
