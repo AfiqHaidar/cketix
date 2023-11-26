@@ -22,11 +22,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 // --------- Concert -------------- //
+
+Route::get('/dashboard', [
+    ConcertController::class, 'dashboard'
+])->middleware(['auth', 'verified'])->name('dashboard');
 
 // concert index
 Route::get('/concert', [
@@ -37,7 +41,7 @@ Route::get('/concert/{concert:name}', [
     ConcertController::class, 'show'
 ])->middleware(['auth', 'verified'])->name('concert.detail');
 
-Route::get('/{guest}', [
+Route::get('/guest/{guest}', [
     ConcertController::class, 'guest'
 ])->middleware(['auth', 'verified'])->name('concert.guest');
 
