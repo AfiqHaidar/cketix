@@ -1,3 +1,3 @@
 <x-app-layout>
-    @include('popular_concert')
+    @include('landing.hero')
 </x-app-layout>
