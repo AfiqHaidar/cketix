@@ -28,6 +28,7 @@ class UserController extends Controller
         $user = Auth::user();
         // Get payment details
         $payment = PaymentMethod::find($transaction->payment_method_id);
+        // dd($payment);
 
         // Get associated tickets
         $tickets = Ticket::where('transaction_id', $transaction->id)->get();
