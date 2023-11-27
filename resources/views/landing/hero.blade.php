@@ -1,7 +1,7 @@
 <div class="z-0 max-screen mx-auto">
     <div id="default-carousel" class="relative w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="relative h-screen overflow-hidden rounded-lg  " >
+        <div class="relative h-screen overflow-hidden rounded-lg bg-black " >
         
             @foreach ($tops as $top)
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -14,8 +14,14 @@
                     
                         <div class="absolute w-full h-screen  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-gradient-to-r from-black from-10%"></div>
                         {{-- <div class="absolute w-full h-screen  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-gradient-to-t from-black from-10%"></div> --}}
-                        <div class="absolute left-1/3 sm:left-28 text-6xl  font-semibold text-white">
+                        <div class="absolute left-1/3 sm:left-28">
+                            <div class=" text-6xl  font-semibold text-white">
                                 {{ $top->name }}
+                            </div>    
+                           
+                            <div class='text-[#C9C9C9] text-2xl my-2 line-clamp-3 tracking-wider'>
+                                POP | ROCK
+                            </div>
                         </div>
                    </div>
                 </div>
