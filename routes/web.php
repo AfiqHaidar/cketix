@@ -58,7 +58,7 @@ Route::post('/concert/{detail:date}/buy/{category:id}', [
 
 // --------- Users -------------- //
 
-Route::get('/transaction-history', [
+Route::get('/transaction-histori', [
     UserController::class, 'transactionHistory'
 ])->middleware(['auth', 'verified'])->name('user.transaction');
 
@@ -78,6 +78,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/transaction-history', [ProfileController::class, 'transactionHistory'])->name('profile.transaction');
+    Route::get('/ticket', [ProfileController::class, 'ticket'])->name('profile.ticket');
+    Route::get('/transaction-history/{transaction:id}', [ProfileController::class, 'transactionReceipt'])->name('profile.receipt');
 });
 
 require __DIR__ . '/auth.php';
