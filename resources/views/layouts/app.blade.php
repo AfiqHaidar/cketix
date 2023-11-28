@@ -24,7 +24,7 @@
        
     </head>
     <body class="font-mont antialiased ">
-        <div class="min-h-screen bg-black relative">
+        <div class="min-h-screen bg-[#1A1A1A] relative">
     
             
             @include('layouts.navigation')
@@ -43,7 +43,7 @@
                   nav.classList.add('transition', 'bg-black/30' ,'py-2');
                   nav.classList.remove( 'bg-transparent', 'py-5');
                 } else {
-                  nav.classList.remove('bg-black310' ,'py-2');
+                  nav.classList.remove('bg-black/30' ,'py-2');
                   nav.classList.add('transition', 'bg-transparent', 'py-5');
                 }
               });

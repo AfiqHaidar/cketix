@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" id="myNav" class=" fixed  z-50 bg-transparent py-5 text-white">
+<nav x-data="{ open: false }" id="myNav" class=" fixed  z-40 bg-transparent py-5 text-white">
     <!-- Primary Navigation Menu -->
     <div class="w-screen mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 ">
@@ -53,11 +53,11 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Account') }}
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
+                         <!-- Authentication -->
+                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"

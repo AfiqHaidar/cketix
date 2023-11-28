@@ -6,8 +6,15 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+
+use App\Models\Transaction;
+use App\Models\PaymentMethod;
+use App\Models\Ticket;
+use App\Models\Concert;
+
 
 class ProfileController extends Controller
 {
@@ -56,5 +63,65 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function transactionHistory()
+    {
+        $user = Auth::user();
+        $transactions = Transaction::where('user_id', $user->id)->get();
+
+        return view('profile.transaction', [
+            'transactions' => $transactions,
+        ]);
+    }
+
+    public function transactionReceipt(Transaction $transaction)
+    {
+        $user = Auth::user();
+        // Get payment details
+        $payment = PaymentMethod::find($transaction->payment_method_id);
+        // dd($payment);
+
+        // Get associated tickets
+        $tickets = Ticket::where('transaction_id', $transaction->id)->get();
+
+        // Return the data to the 'user.receipt' view
+        return view('profile.receipt', [
+            'payment' => $payment,
+            'tickets' => $tickets,
+            'transaction' => $transaction,
+            'user' => $user,
+        ]);
+    }
+
+    public function ticket()
+    {
+        $user = Auth::user();
+
+        $concerts = DB::table('transactions')
+            ->join('tickets', 'transactions.id', '=', 'tickets.transaction_id')
+            ->join('catagories', 'tickets.catagory_id', '=', 'catagories.id')
+            ->join('concert_details', 'catagories.concert_detail_id', '=', 'concert_details.id')
+            ->join('venues', 'catagories.venue_id', '=', 'venues.id')
+            ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
+            ->select('concerts.id as id', 'concerts.name as name', 'concerts.image as image')
+            ->distinct()
+            ->where('transactions.user_id', $user->id)
+            ->get();
+
+        $result = DB::table('transactions')
+            ->join('tickets', 'transactions.id', '=', 'tickets.transaction_id')
+            ->join('catagories', 'tickets.catagory_id', '=', 'catagories.id')
+            ->join('concert_details', 'catagories.concert_detail_id', '=', 'concert_details.id')
+            ->join('venues', 'catagories.venue_id', '=', 'venues.id')
+            ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
+            ->select('tickets.tcode', 'concerts.name as concert_name', 'concerts.image as concert_image', 'concert_details.date', 'venues.name as venue_name')
+            ->where('transactions.user_id', $user->id)
+            ->get();
+
+        return view('profile.ticket', [
+            'concerts' => $concerts,
+            'tickets' => $result,
+        ]);
     }
 }
