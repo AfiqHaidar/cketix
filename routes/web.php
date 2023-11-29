@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -82,5 +83,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/ticket', [ProfileController::class, 'ticket'])->name('profile.ticket');
     Route::get('/transaction-history/{transaction:id}', [ProfileController::class, 'transactionReceipt'])->name('profile.receipt');
 });
+
+// -------- Home ---------- //
+// route::get('/home', [HomeController::class, 'index']);
+
 
 require __DIR__ . '/auth.php';

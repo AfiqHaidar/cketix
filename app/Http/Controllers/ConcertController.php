@@ -5,29 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Concert;
 use App\Models\ConcertDetail;
 use App\Models\Guest;
+use App\Models\Users;
+
 
 class ConcertController extends Controller
 {
     public function dashboard()
     {
-        // Attempt to retrieve data from the cache
-        // $topConcerts = Cache::remember('topConcerts', 1, function () {
-        //     return $this->getTopConcerts();
-        // });
-
-        $topConcerts =  $this->getTopConcerts();
-
-        // dd($topConcerts);
-
-        // dd($topConcerts);
-
-        return view('dashboard', [
-            'tops' => $topConcerts
-        ]);
+        if(Auth::id()){
+            $usertype=Auth()->user()->usertype;
+        
+            $topConcerts =  $this->getTopConcerts();
+        
+            // dd($topConcerts);
+        
+            // dd($topConcerts);
+            
+            if($usertype=='user'){
+                return view('dashboard', [
+                    'tops' => $topConcerts
+                ]);        
+            }
+            else if($usertype=='admin'){
+                return view('admin.dashboard', [
+                    'tops' => $topConcerts
+                ]); 
+            }
+            else{
+                return redirect()->back();
+            }
+        }
     }
 
     private function getTopConcerts()

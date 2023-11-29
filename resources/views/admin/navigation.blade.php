@@ -7,7 +7,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:flex ml-5">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('User Dashboard') }}
+                        {{ __('Admin Dashboard') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('concert.index')" :active="request()->routeIs('concert.index')">
@@ -21,7 +21,6 @@
                     <x-nav-link :href="route('user.ticket')" :active="request()->routeIs('user.ticket')">
                         {{ __('Tickets') }}
                     </x-nav-link> --}}
-                    
                 </div>
             </div>
 
@@ -61,8 +60,8 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                onclick="event.preventDefault();
+                                    this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -86,7 +85,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Admin Dashboard') }}
             </x-responsive-nav-link>
 
             <x-nav-link :href="route('concert.index')" :active="request()->routeIs('concert.index')">
@@ -109,14 +108,22 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+                
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Add Guest') }}
+                </x-responsive-nav-link>
+                
+                <x-responsive-nav-link :href="route('profile.edit')">
+                    {{ __('Add Concert') }}
+                </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                        onclick="event.preventDefault();
+                        this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
