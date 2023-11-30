@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('concert_detail_id')->constrained();
             $table->foreignId('venue_id')->constrained();
             $table->timestamps();
+            $table->string('description');
         });
     }
 

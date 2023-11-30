@@ -12,7 +12,7 @@ class Catagory extends Model
     protected $table = 'catagories';
 
     protected $guarded = ['id'];
-    protected $fillable = ['seat', 'code', 'price', 'concert_detail_id', 'venue_id'];
+    protected $fillable = ['seat', 'code', 'price', 'concert_detail_id', 'venue_id', 'description'];
 
     public function concertDetail()
     {
