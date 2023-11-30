@@ -55,14 +55,21 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Account') }}
                         </x-dropdown-link>
+                        
+                        
+                        @if(auth()->user()->usertype === 'admin')
+                            <x-dropdown-link :href="route('admin.welcomepage')">
+                                {{ __('Admin page') }}
+                            </x-dropdown-link>
+                        @endif        
 
                          <!-- Authentication -->
                          <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                onclick="event.preventDefault();
+                                    this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>

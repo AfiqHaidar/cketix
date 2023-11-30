@@ -26,22 +26,13 @@ class ConcertController extends Controller
         
             // dd($topConcerts);
             
-            if($usertype=='user'){
-                return view('dashboard', [
-                    'tops' => $topConcerts
-                ]);        
-            }
-            else if($usertype=='admin'){
-                return view('admin.dashboard', [
-                    'tops' => $topConcerts
-                ]); 
-            }
-            else{
-                return redirect()->back();
-            }
+            return view('dashboard', [
+                'tops' => $topConcerts
+            ]);        
+
         }
     }
-
+    
     private function getTopConcerts()
     {
         return DB::table('transactions')
