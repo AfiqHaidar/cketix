@@ -50,7 +50,7 @@
                     {{ $transaction->total }}
                 </td>
                 <td class="px-6 py-4">
-                    new column
+                    {{ $transaction->status }}
                 </td>
                 <td class="px-6 py-4 text-right">
                     <a href="{{ route('profile.receipt', ['transaction' => $transaction ]) }}" class="font-medium  hover:underline">Detail</a>

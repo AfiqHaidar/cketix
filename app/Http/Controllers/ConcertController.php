@@ -36,7 +36,7 @@ class ConcertController extends Controller
             ->join('concert_details', 'catagories.concert_detail_id', '=', 'concert_details.id')
             ->join('venues', 'catagories.venue_id', '=', 'venues.id')
             ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
-            ->select('concerts.id', 'concerts.name', 'concerts.image', DB::raw('COUNT(transactions.id) as Total'))
+            ->select('concerts.id', 'concerts.short_desc', 'concerts.name', 'concerts.image', DB::raw('COUNT(transactions.id) as Total'))
             ->groupBy('concerts.id')
             ->orderBy('Total', 'desc')
             ->limit(3) // Add the limit here
@@ -70,11 +70,11 @@ class ConcertController extends Controller
         $guest = DB::table('guest_details')
             ->join('guests', 'guest_details.guest_id', '=', 'guests.id')
             ->where('guest_details.concert_id', $id)
-            ->select('guest_details.*', 'guests.name as guest_name')
+            ->select('guest_details.*', 'guests.name as guest_name', 'guests.quote')
             ->get();
 
         return view('concert.detail', [
-            'concert' => $concert[0]->name,
+            'concert' => $concert[0],
             'concertDetails' => $details,
             'guestDetails' => $guest,
         ]);

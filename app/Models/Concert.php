@@ -12,7 +12,7 @@ class Concert extends Model
     protected $table = 'concerts';
 
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'image'];
+    protected $fillable = ['name', 'image', 'short_desc', 'long_desc'];
 
     public function guestDetail()
     {

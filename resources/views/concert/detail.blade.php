@@ -6,8 +6,8 @@
   >
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-2 mb-7">
-            <h1 class="mb-4 text-3xl font-extrabold dark:text-white md:text-5xl lg:text-6xl">{{ $concert }}</h1>
-            <p class="text-lg font-normal text-white lg:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+            <h1 class="mb-4 text-3xl font-extrabold dark:text-white md:text-5xl lg:text-6xl">{{ $concert->name }}</h1>
+            <p class="text-lg font-normal text-white lg:text-xl dark:text-gray-400">{{ $concert->long_desc }}</p>
         </div>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-3">
@@ -53,11 +53,11 @@
                     <div class="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
                       <h1 class="font-dmserif text-3xl font-bold text-white"> {{ $guest->guest_name }}</h1>
                       <p class="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        date br quote
+                        {{ $guest->quote }}
                       </p>
                       <a
                         href="{{ route('concert.guest', ['guest' => $guest->guest_name ]) }}"
-                        class="rounded-full mt-10 bg-gray-900 px-3.5 py-2 font-com text-sm capitalize text-white shadow shadow-black/60 hover:bg-slate-50 hover:text-neutral-900"
+                        class="rounded-full mt-10  px-3.5 py-2 font-com text-sm capitalize text-white bg-[#494949] hover:text-[#494949] hover:bg-white shadow shadow-black/60"
                       >
                         See More
                       </a>
