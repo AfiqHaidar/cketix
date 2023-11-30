@@ -7,7 +7,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:flex ml-5">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('User Dashboard') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('concert.index')" :active="request()->routeIs('concert.index')">
@@ -55,14 +55,21 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Account') }}
                         </x-dropdown-link>
+                        
+                        
+                        @if(auth()->user()->usertype === 'admin')
+                            <x-dropdown-link :href="route('admin.welcomepage')">
+                                {{ __('Admin page') }}
+                            </x-dropdown-link>
+                        @endif        
 
                          <!-- Authentication -->
                          <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                onclick="event.preventDefault();
+                                    this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
