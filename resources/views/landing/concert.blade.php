@@ -10,7 +10,7 @@
       This concert is Really Aweome
     </div>
     <div class="py-2 -mb-6 group-hover:mb-6  w-full text-white rounded-xl text-center bg-[#494949] opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-1000">
-      <a class=""  href="{{ route('concert.detail', ['concert' => $concert ]) }}">See Details</a>
+      <a class=""  href="{{ route('concert.detail', ['id' => $concert->id ])  }}">See Details</a>
     </div>
   </div>
 </div>

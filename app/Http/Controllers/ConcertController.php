@@ -15,9 +15,15 @@ class ConcertController extends Controller
 {
     public function dashboard()
     {
+
+
+        $topConcerts =  $this->getTopConcerts();
         $banners = $this->getBanners();
+        // dd($banners);
+
 
         return view('dashboard', [
+            'tops' => $topConcerts,
             'banners' => $banners,
         ]);
     }
@@ -30,10 +36,10 @@ class ConcertController extends Controller
             ->join('concert_details', 'catagories.concert_detail_id', '=', 'concert_details.id')
             ->join('venues', 'catagories.venue_id', '=', 'venues.id')
             ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
-            ->select('concerts.name', 'concerts.image', DB::raw('COUNT(transactions.id) as Total'))
+            ->select('concerts.id', 'concerts.name', 'concerts.image', DB::raw('COUNT(transactions.id) as Total'))
             ->groupBy('concerts.id')
             ->orderBy('Total', 'desc')
-            ->limit(2) // Add the limit here
+            ->limit(3) // Add the limit here
             ->get()
             ->map(function ($concert, $index) {
                 $concert->row_number = $index + 1;
@@ -55,18 +61,20 @@ class ConcertController extends Controller
         ]);
     }
 
-    public function show(Concert $concert)
+    public function show($id)
     {
-        $details = ConcertDetail::where('concert_id', $concert->id)->get();
+        $details = ConcertDetail::where('concert_id', $id)->get();
+        $concert = Concert::where('id', $id)->get();
+        // dd($concert);
 
         $guest = DB::table('guest_details')
             ->join('guests', 'guest_details.guest_id', '=', 'guests.id')
-            ->where('guest_details.concert_id', $concert->id)
+            ->where('guest_details.concert_id', $id)
             ->select('guest_details.*', 'guests.name as guest_name')
             ->get();
 
         return view('concert.detail', [
-            'concert' => $concert->name,
+            'concert' => $concert[0]->name,
             'concertDetails' => $details,
             'guestDetails' => $guest,
         ]);
