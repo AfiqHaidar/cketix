@@ -18,7 +18,7 @@
 
                         <div  class="flex justify-between items-start p-5 text-center border-black border-b-2">
                             <div class=" h-20 flex justify-center items-center text-3xl font-bold text-gray-900">
-                                <h1>INVOICE</h1>
+                                <h1>RECEIPT</h1>
                             </div>
                             <div class="flex justify-center items-center text-3xl font-bold text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20">
@@ -31,13 +31,13 @@
                         <div  class="flex justify-between items-start p-5 text-center">
                             <div class="flex flex-col justify-center items-start  text-gray-900">
                                 <h1 class="font-semibold ">BILLED TO:</h1>
-                                <h1>NAMA ORANG</h1>
-                                <h1>NOMOR TELPON</h1>
-                                <h1>EMAIL</h1>
+                                <h1>{{ $user->name }}</h1>
+                                <h1>{{  $user->telephone_number  }}</h1>
+                                <h1>{{ $user->email }}</h1>
                             </div>
                             <div class="flex flex-col justify-center items-end text-gray-900">
-                                <h1>NO INVOICE</h1>
-                                <h1>TANGGAL</h1>
+                                <h1>TR{{  str_pad($transaction->id, 4, '0', STR_PAD_LEFT) }}</h1>
+                                <h1>{{ $transaction->created_at }}</h1>
                             </div>
                         </div>
 
@@ -68,19 +68,19 @@
                                     <tbody>
                                         <tr class="bg-white border-t">
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                Reeva
+                                                {{ $details->name }}
                                             </th>
                                             <td class="px-6 py-4 font-medium text-gray-900">
-                                                ST1
+                                                {{ $details->code }}
                                             </td>
                                             <td class="px-6 py-4 font-medium text-gray-900">
-                                                4
+                                                {{ $details->ticket_count }}
                                             </td>
                                             <td class="px-6 py-4 font-medium text-gray-900">
-                                                12.000
+                                                {{ $details->price }}
                                             </td>
                                             <td class="px-6 py-4 font-medium text-gray-900">
-                                                48.000
+                                                {{ $details->price * $details->ticket_count }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -92,9 +92,9 @@
                         <div  class="flex justify-between items-start pt-20 px-5 pb-5 text-center ">
                             <div class="flex flex-col justify-center items-start  text-gray-900">
                                 <h1 class="font-semibold border-b-2 border-black">PAYMENT INFORMATION</h1>
-                                <h1>Status : Paid</h1>
-                                <h1>Method : Bank</h1>
-                                <h1>Date   : 12/3/2002</h1>
+                                <h1>Status : {{ $transaction->status }}</h1>
+                                <h1>Method : {{ $payment->payment }}</h1>
+                                <h1>Date   : {{ $transaction->updated_at }}</h1>
                             </div>
                             <div class="flex flex-col  justify-center items-center text-3xl font-bold text-gray-900">
                                     <h1>CKETIX</h1>

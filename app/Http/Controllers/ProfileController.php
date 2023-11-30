@@ -80,15 +80,35 @@ class ProfileController extends Controller
         $user = Auth::user();
         // Get payment details
         $payment = PaymentMethod::find($transaction->payment_method_id);
-        // dd($payment);
 
-        // Get associated tickets
-        $tickets = Ticket::where('transaction_id', $transaction->id)->get();
+        $details = DB::table('transactions')
+            ->join('tickets', 'transactions.id', '=', 'tickets.transaction_id')
+            ->join('catagories', 'tickets.catagory_id', '=', 'catagories.id')
+            ->join('concert_details', 'catagories.concert_detail_id', '=', 'concert_details.id')
+            ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
+            ->select(
+                DB::raw('count(tickets.tcode) as ticket_count'),
+                'concerts.name',
+                'catagories.price',
+                'catagories.code',
+                'concert_details.date'
+            )
+            ->where('transactions.id', $transaction->id)
+            ->groupBy(
+                'transactions.id',
+                'concerts.name',  // Include non-aggregated column in GROUP BY
+                'catagories.price',
+                'catagories.code',
+                'concert_details.date'
+            )
+            ->get();
+
+        // dd($details[0]);
 
         // Return the data to the 'user.receipt' view
         return view('profile.receipt', [
             'payment' => $payment,
-            'tickets' => $tickets,
+            'details' => $details[0],
             'transaction' => $transaction,
             'user' => $user,
         ]);
