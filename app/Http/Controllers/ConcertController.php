@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
+use App\Models\Banner;
 use App\Models\Concert;
 use App\Models\ConcertDetail;
 use App\Models\Guest;
@@ -14,19 +15,10 @@ class ConcertController extends Controller
 {
     public function dashboard()
     {
-        // Attempt to retrieve data from the cache
-        // $topConcerts = Cache::remember('topConcerts', 1, function () {
-        //     return $this->getTopConcerts();
-        // });
-
-        $topConcerts =  $this->getTopConcerts();
-
-        // dd($topConcerts);
-
-        // dd($topConcerts);
+        $banners = $this->getBanners();
 
         return view('dashboard', [
-            'tops' => $topConcerts
+            'banners' => $banners,
         ]);
     }
 
@@ -47,6 +39,11 @@ class ConcertController extends Controller
                 $concert->row_number = $index + 1;
                 return $concert;
             });
+    }
+
+    private function getBanners()
+    {
+        return Banner::all();
     }
 
     public function index()
