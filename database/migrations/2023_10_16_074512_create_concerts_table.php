@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('concerts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->date('date');
+            $table->string('description');
             $table->string('image')->nullable();
             $table->string('short_desc');
             $table->string('long_desc');

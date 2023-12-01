@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Banner;
 use App\Models\Concert;
 use App\Models\ConcertDetail;
 use App\Models\Guest;
+use App\Models\Users;
+
 
 class ConcertController extends Controller
 {
     public function dashboard()
     {
+
 
 
         $topConcerts =  $this->getTopConcerts();
@@ -26,8 +30,9 @@ class ConcertController extends Controller
             'tops' => $topConcerts,
             'banners' => $banners,
         ]);
-    }
 
+    }
+    
     private function getTopConcerts()
     {
         return DB::table('transactions')
