@@ -29,14 +29,14 @@
 
 
                 <div id="accordion-collapse-body-{{ $concert->id }}" class="hidden" aria-labelledby="accordion-collapse-heading-{{ $concert->id }}">
-                  <div class="p-5 border border-gray-200 ">
+                  <div class="p-20 border border-gray-200 grid grid-cols-2 gap-5  ">
 
 
                     @foreach ($tickets as $ticket)
 
                     @if ($ticket->concert_name == $concert->name)
 
-                    <div class="flex flex-row w-1/2  items-center bg-cover bg-no-repeat border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl"
+                    <div class=" w-full flex flex-row  items-center bg-cover bg-no-repeat border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl"
                     style="background-image: url('{{  asset($concert->image) }}');">
                         <div class="flex flex-col w-4/5 justify-between p-4 leading-normal">
                             <h1 class="mb-10 text-5xl font-bold tracking-tight text-white">{{ $ticket->concert_name }}</h1>
@@ -59,8 +59,8 @@
                                 <h1 class="mt-10 text-2xl font-bold tracking-tight text-white">{{ $ticket->tcode }}</h1> 
                             </div>
                         </div>
-                        <div class="w-1/5 border-l-2 border-dashed h-full">
-                            <p class="">Ticket cannot be Refund. Enjoy the concert!</p>
+                        <div class="w-1/5 flex justify-center items-center  border-l-2 border-dashed h-full">
+                            <img class="w-4/5 rounded-lg" src="/storage/res/rr.png" alt="">
                         </div>
                     </div>
 

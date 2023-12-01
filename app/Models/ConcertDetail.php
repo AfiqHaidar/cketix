@@ -12,7 +12,7 @@ class ConcertDetail extends Model
     protected $table = 'concert_details';
 
     protected $guarded = ['id'];
-    protected $fillable = ['date', 'concert_id', 'venue_id'];
+    protected $fillable = ['date', 'concert_id', 'venue_id', 'map'];
 
     public function venue()
     {

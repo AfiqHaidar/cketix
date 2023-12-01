@@ -61,6 +61,6 @@ class TransactionController extends Controller
             $category->decrement('seat');
         }
 
-        return redirect()->route('concert.index');
+        return redirect()->route('profile.receipt', ['transaction' => $transaction]);
     }
 }

@@ -3,24 +3,24 @@
         <!-- Carousel wrapper -->
         <div class="relative h-screen overflow-hidden rounded-lg bg-black " >
         
-            @foreach ($tops as $top)
+            @foreach ($banners as $banner)
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                     <div class="relative">
 
                         <div>
-                            <img src="{{ asset($top->image) }}" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                            <img src="{{ asset($banner->image) }}" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                         </div>
                     
                         <div class="absolute w-full h-screen  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-gradient-to-r from-black from-10%"></div>
                         {{-- <div class="absolute w-full h-screen  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-gradient-to-t from-black from-10%"></div> --}}
                         <div class="absolute left-1/3 sm:left-28">
                             <div class=" text-6xl  font-semibold text-white">
-                                {{ $top->name }}
+                                {{ $banner->header }}
                             </div>    
                            
                             <div class='text-[#C9C9C9] text-2xl my-2 line-clamp-3 tracking-wider'>
-                                POP | ROCK
+                                {{ $banner->subheader }}
                             </div>
                         </div>
                    </div>
@@ -32,8 +32,8 @@
         </div>
         <!-- Slider indicators -->
         <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-            @foreach ($tops as $top)
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide {{ $top->row_number }}" data-carousel-slide-to="{{ $top->row_number - 1 }}"></button>
+            @foreach ($banners as $banner)
+                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide {{ $banner->id }}" data-carousel-slide-to="{{  $banner->id }}"></button>
             @endforeach
         </div>
 
