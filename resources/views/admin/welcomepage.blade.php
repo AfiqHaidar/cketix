@@ -10,8 +10,10 @@
         
         @include('components.admin.sidebar')
      
-     <div class="px-4 w-3/4">
-        
+     <div class="px-4 w-3/4 bg-white h-50 rounded-lg flex justify-center items-center">
+        <div class="font-semibold text-xl">
+            CKETIX ADMIN PAGE
+        </div>
      </div>
     </div>
 </x-app-layout>

@@ -81,10 +81,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction-history/{transaction:id}', [ProfileController::class, 'transactionReceipt'])->name('profile.receipt');
 });
 
-// -------- Admin ---------- //
-route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
-route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
-route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+Route::middleware('admin')->group(function () {
+
+    // -------- Admin ---------- //
+    route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
+    route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
+    route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+});
+
+
 
 
 require __DIR__ . '/auth.php';
