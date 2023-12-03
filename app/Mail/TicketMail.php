@@ -17,11 +17,11 @@ class TicketMail extends Mailable
     use Queueable, SerializesModels;
 
     public $ticket;
-    public Transaction $transaction;
-    public Catagory $catagory;
-    public User $user;
+    public $transaction;
+    public $catagory;
+    public $user;
 
-    public function __construct($ticket,  Transaction $transaction,  Catagory $catagory,  User $user)
+    public function __construct($ticket, $transaction, $catagory, $user)
     {
         $this->ticket = $ticket;
         $this->transaction = $transaction;

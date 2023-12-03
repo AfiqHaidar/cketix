@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Document</title>
+    <title>Receipt</title>
 </head>
 <body>
-    {{-- {{ $ticket  }}
-    {{ $transaction->total }}
-    {{ $cat->code }} --}}
-    {{ $user->name }}
+    <p>{{ $ticket  }}</p>
+    <p>{{ $transaction->total }}</p>
+    <p>{{ $cat->code }}</p>
+    <p>{{ $user->name }}</p>
 </body>
 </html>

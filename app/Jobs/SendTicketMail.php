@@ -19,14 +19,14 @@ class SendTicketMail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $ticket;
-    public Transaction $transaction;
-    public Catagory $catagory;
-    public User $user;
+    public $transaction;
+    public $catagory;
+    public $user;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($ticket,  Transaction $transaction,  Catagory $catagory,  User $user)
+    public function __construct($ticket, $transaction, $catagory, $user)
     {
         $this->ticket = $ticket;
         $this->transaction = $transaction;
@@ -40,6 +40,6 @@ class SendTicketMail implements ShouldQueue
     public function handle(): void
     {
         $email = new TicketMail($this->ticket, $this->transaction, $this->catagory,  $this->user);
-        Mail::to('rafi.nizar17@gmail.com')->send($email);
+        Mail::to($this->user->email)->send($email);
     }
 }
