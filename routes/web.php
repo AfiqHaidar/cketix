@@ -5,7 +5,11 @@ use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-
+use App\Jobs\SendTicketMail;
+use App\Mail\PromotionMail;
+use App\Mail\TicketMail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -95,7 +99,6 @@ Route::middleware('admin')->group(function () {
 
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
 });
-
 
 
 

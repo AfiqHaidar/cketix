@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Jobs\SendTicketMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +60,14 @@ class TransactionController extends Controller
             // Decrement the category seat in the database
             $category->decrement('seat');
         }
+
+        // mail handling
+        $userMailData = $user;
+        $transactionMailData = $transaction;
+        $ticketMailData =  $request->input('ticket');
+        $catMailData = $category;
+
+        dispatch(new SendTicketMail($ticketMailData, $transactionMailData, $catMailData, $userMailData));
 
         return redirect()->route('profile.receipt', ['transaction' => $transaction]);
     }
