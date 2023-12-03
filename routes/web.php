@@ -85,7 +85,14 @@ Route::middleware('admin')->group(function () {
 
     // -------- Admin ---------- //
     route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
+
     route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
+    route::get('/admin/guest/add', [AdminController::class, 'addGuest'])->name('admin.addGuest');
+    route::post('/admin/guest/create', [AdminController::class, 'createGuest'])->name('admin.createGuest');
+    route::get('/admin/guest/edit/{id}', [AdminController::class, 'editGuest'])->name('admin.editGuest');
+    route::post('/admin/guest/update/{guest:id}', [AdminController::class, 'updateGuest'])->name('admin.updateGuest');
+    route::get('/admin/guest/delete/{guest:id}', [AdminController::class, 'deleteGuest'])->name('admin.deleteGuest');
+
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
 });
 

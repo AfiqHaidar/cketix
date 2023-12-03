@@ -11,6 +11,10 @@
         @include('components.admin.sidebar')
      
      <div class="px-4 w-3/4">
+        <div class="px-5 py-2 mx-auto my-3 hover:text-white bg-gray-300 hover:bg-white shadow-lg rounded-lg w-fit">
+            <a href=" {{ route('admin.addGuest') }}"  class="text-black">Add Guest</a>
+        </div>
+        
         <div class="rounded-xl dark:border-gray-700">
            <div class="h-fit p-5 mb-4 rounded-xl bg-gray-50 ">
                
@@ -19,25 +23,44 @@
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    AAAAAAAAAAA No.
+                <th scope="col" class="text-center px-6 py-3">
+                    ID
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Date & Time
+                <th scope="col" class="text-center px-6 py-3">
+                    Name            
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Total
+                <th scope="col" class="text-center px-6 py-3">
+                    Image
                 </th>
-                <th scope="col" class="px-6 py-3">
-                    Status
+                <th scope="col" class="text-center px-6 py-3">
+                    Personal Quote
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="text-center px-6 py-3">
                     Action
                 </th>
             </tr>
         </thead>
         <tbody>
-
+            @foreach ($guests as $guest)
+            <tr class="bg-white border-b hover:bg-gray-100 ">
+                <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    GS{{ str_pad($guest->id, 3, '0', STR_PAD_LEFT); }}
+                </th>
+                <td class="text-center px-6 py-4">
+                    {{ $guest->name }}
+                </td>
+                <td class="text-center px-6 py-4">
+                    {{ $guest->image }}
+                </td>
+                <td class="text-center px-6 py-4">
+                    {{ $guest->pqoute }}
+                </td>
+                <td class="flex justify-evenly items-center px-6 py-4 text-right">
+                    <a href="{{ route('admin.editGuest', ['id' => $guest->id])  }}" class="font-medium  hover:underline">Edit</a>
+                    <a href="{{ route('admin.deleteGuest', ['guest' => $guest]) }}" class="font-medium  hover:underline">Delete</a>
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

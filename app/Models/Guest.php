@@ -12,7 +12,7 @@ class Guest extends Model
     protected $table = 'guests';
 
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'image', 'qoute'];
+    protected $fillable = ['name', 'image', 'pqoute'];
 
     public function guestDetail()
     {

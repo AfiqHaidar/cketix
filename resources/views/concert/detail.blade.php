@@ -56,7 +56,7 @@
                     <div class="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
                       <h1 class="font-dmserif text-3xl font-bold text-white"> {{ $guest->guest_name }}</h1>
                       <p class="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        {{ $guest->quote }}
+                        {{ $guest->pquote }}
                       </p>
                       <a
                         href="{{ route('concert.guest', ['guest' => $guest->guest_name ]) }}"

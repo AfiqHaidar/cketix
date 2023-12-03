@@ -30,9 +30,8 @@ class ConcertController extends Controller
             'tops' => $topConcerts,
             'banners' => $banners,
         ]);
-
     }
-    
+
     private function getTopConcerts()
     {
         return DB::table('transactions')
@@ -75,7 +74,7 @@ class ConcertController extends Controller
         $guest = DB::table('guest_details')
             ->join('guests', 'guest_details.guest_id', '=', 'guests.id')
             ->where('guest_details.concert_id', $id)
-            ->select('guest_details.*', 'guests.name as guest_name', 'guests.quote')
+            ->select('guest_details.*', 'guests.name as guest_name', 'guests.pquote')
             ->get();
 
         return view('concert.detail', [
