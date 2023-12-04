@@ -59,49 +59,49 @@ class ConcertSeeder extends Seeder
                 'date' => now()->addDays(2),
                 'concert_id' => '1',
                 'venue_id' => '1',
-                'map' => 'maps/m1.png'
+                'map' => 'maps/m1.jpg'
             ],
             [
                 'date' => now()->addDays(3),
                 'concert_id' => '1',
                 'venue_id' => '1',
-                'map' => 'maps/m1.png'
+                'map' => 'maps/m1.jpg'
             ],
             [
                 'date' => now()->addDays(4),
                 'concert_id' => '1',
                 'venue_id' => '1',
-                'map' => 'maps/m1.png'
+                'map' => 'maps/m1.jpg'
             ],
             [
                 'date' => now()->addDays(6),
                 'concert_id' => '2',
                 'venue_id' => '2',
-                'map' => 'maps/m2.png'
+                'map' => 'maps/m2.jpg'
             ],
             [
                 'date' => now()->addDays(7),
                 'concert_id' => '2',
                 'venue_id' => '2',
-                'map' => 'maps/m2.png'
+                'map' => 'maps/m2.jpg'
             ],
             [
                 'date' => now()->addDays(10),
                 'concert_id' => '3',
                 'venue_id' => '3',
-                'map' => 'maps/m3.png'
+                'map' => 'maps/m3.jpg'
             ],
             [
                 'date' => now()->addDays(11),
                 'concert_id' => '3',
                 'venue_id' => '3',
-                'map' => 'maps/m3.png'
+                'map' => 'maps/m3.jpg'
             ],
             [
                 'date' => now()->addDays(12),
                 'concert_id' => '3',
                 'venue_id' => '3',
-                'map' => 'maps/m3.png'
+                'map' => 'maps/m3.jpg'
             ],
             [
                 'date' => now()->addDays(15),
@@ -119,19 +119,19 @@ class ConcertSeeder extends Seeder
                 'date' => now()->addDays(17),
                 'concert_id' => '5',
                 'venue_id' => '5',
-                'map' => 'maps/m5.png'
+                'map' => 'maps/m5.jpg'
             ],
             [
                 'date' => now()->addDays(18),
                 'concert_id' => '5',
                 'venue_id' => '5',
-                'map' => 'maps/m5.png'
+                'map' => 'maps/m5.jpg'
             ],
             [
                 'date' => now()->addDays(19),
                 'concert_id' => '5',
                 'venue_id' => '5',
-                'map' => 'maps/m5.png'
+                'map' => 'maps/m5.jpg'
             ],
 
         ];

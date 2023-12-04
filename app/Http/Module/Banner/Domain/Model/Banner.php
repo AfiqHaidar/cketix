@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Module\Product\Domain\Model;
+namespace App\Http\Module\Banner\Domain\Model;
 
 use App\Models\Cart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,18 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
-class Product
+class Banner
 {
     /**
-     * @param string $nama
-     * @param float $price
-     * @param string $description
+     * @param string $header
+     * @param string $subheader
+     * @param string $image
      */
     public function __construct(
-        public string $nama,
-        public float $price,
-        public string $description,
-    )
-    {
+        public string $header,
+        public string $subheader,
+        public string $image,
+    ) {
     }
 }

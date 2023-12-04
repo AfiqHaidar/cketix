@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
             $table->string('status');
+            $table->string('receipt')->nullable()->default(null);;
         });
     }
 

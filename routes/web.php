@@ -58,6 +58,10 @@ Route::post('/concert/{detail:date}/buy/{category:id}', [
     TransactionController::class, 'store'
 ])->middleware(['auth', 'verified'])->name('ticket.create');
 
+Route::post('transaction-payment/{transaction:id}', [
+    TransactionController::class, 'transactionPayment'
+])->middleware(['auth', 'verified'])->name('ticket.payment');
+
 // --------- Users -------------- //
 
 Route::get('/transaction-histori', [

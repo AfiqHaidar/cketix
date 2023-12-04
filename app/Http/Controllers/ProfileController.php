@@ -137,6 +137,7 @@ class ProfileController extends Controller
             ->join('concerts', 'concert_details.concert_id', '=', 'concerts.id')
             ->select('tickets.tcode', 'concerts.name as concert_name', 'concerts.image as concert_image', 'concert_details.date', 'venues.name as venue_name')
             ->where('transactions.user_id', $user->id)
+            ->where('transactions.status', 'PAID')
             ->get();
 
         return view('profile.ticket', [

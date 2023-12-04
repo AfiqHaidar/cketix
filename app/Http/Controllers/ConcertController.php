@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Module\Banner\Presentation\Controller\BannerController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -16,14 +18,19 @@ use App\Models\Users;
 
 class ConcertController extends Controller
 {
+    private BannerController $bannerController;
+
+    public function __construct(BannerController $bc)
+    {
+        $this->bannerController = $bc;
+    }
+
     public function dashboard()
     {
 
-
-
         $topConcerts =  $this->getTopConcerts();
-        $banners = $this->getBanners();
-        // dd($banners);
+
+        $banners = $this->bannerController->getAllBanners();
 
 
         return view('dashboard', [
