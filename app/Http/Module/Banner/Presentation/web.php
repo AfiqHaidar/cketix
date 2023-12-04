@@ -8,3 +8,4 @@ Route::get('ping', function () {
 });
 
 Route::get('banner-test', [BannerController::class, 'getAllBanners']);
+route::post('/admin/banner/create', [BannerController::class, 'createBanner'])->name('admin.createBanner');

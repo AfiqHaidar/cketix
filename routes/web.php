@@ -89,9 +89,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction-history/{transaction:id}', [ProfileController::class, 'transactionReceipt'])->name('profile.receipt');
 });
 
+// -------- Admin ---------- //
+
 Route::middleware('admin')->group(function () {
 
-    // -------- Admin ---------- //
     route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
 
     route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
@@ -107,6 +108,10 @@ Route::middleware('admin')->group(function () {
     route::get('/admin/payment-decline/{transaction:id}', [AdminController::class, 'declinePayment'])->name('admin.declinePayment');
 
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+
+    route::get('/admin/banner', [AdminController::class, 'banner'])->name('admin.banner');
+    route::get('/admin/banner/add', [AdminController::class, 'addBanner'])->name('admin.addBanner');
+    // route::post('/admin/banner/create', [AdminController::class, 'createBanner'])->name('admin.createBanner');
 });
 
 

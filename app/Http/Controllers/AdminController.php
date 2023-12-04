@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Module\Banner\Domain\Model\Banner;
+use App\Http\Module\Banner\Presentation\Controller\BannerController;
 use App\Models\Guest;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -107,5 +109,24 @@ class AdminController extends Controller
     public function concert()
     {
         return view('admin.concert');
+    }
+
+    private BannerController $bannerController;
+
+    public function __construct(BannerController $bc)
+    {
+        $this->bannerController = $bc;
+    }
+
+    public function banner()
+    {
+        $banners = $this->bannerController->getAllBanners();
+
+        return view('admin.banner.banner', ['banners' => $banners]);
+    }
+
+    public function addBanner()
+    {
+        return view('admin.banner.add');
     }
 }

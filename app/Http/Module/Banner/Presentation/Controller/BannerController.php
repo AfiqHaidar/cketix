@@ -19,14 +19,23 @@ class BannerController
 
     public function createBanner(Request $request)
     {
-        // dd($request);
+        $validatedData = $request->validate([
+            'header' => 'required|string|max:255',
+            'subheader' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
+        ]);
+        $imagePath = $request->file('image')->store('banners', 'public');
+        $validatedData['image'] =  $imagePath;
+
         $request = new CreateBannerRequest(
-            $request->input('header'),
-            $request->input('subheader'),
-            $request->input('image'),
+            $validatedData['header'],
+            $validatedData['subheader'],
+            $validatedData['image'],
         );
 
-        return $this->create_banner_service->execute($request);
+        $this->create_banner_service->execute($request);
+
+        return redirect()->route('admin.banner');
     }
 
     public function getAllBanners()
