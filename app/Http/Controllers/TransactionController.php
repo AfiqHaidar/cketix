@@ -39,6 +39,7 @@ class TransactionController extends Controller
             'total' => $totalPrice,
             'user_id' => $user->id,
             'payment_method_id' => $request->input('payment-method'),
+            'status' => 'unpaid',
         ]);
 
 

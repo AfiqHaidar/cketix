@@ -9,7 +9,7 @@
                     <div class="relative">
 
                         <div>
-                            <img src="{{ asset($banner->image) }}" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                            <img src="{{ asset('storage/'. $banner->image) }}" class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                         </div>
                     
                         <div class="absolute w-full h-screen  -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-gradient-to-r from-black from-10%"></div>

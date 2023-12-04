@@ -189,7 +189,7 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_heading_1 .
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="https://img.freepik.com/free-photo/people-concert_1160-737.jpg?w=1380&t=st=1701613043~exp=1701613643~hmac=8ce3803bad5544b6b7894883521d392854d6aed14765367e7897c28c79bf296e" alt="Hero Image" title="Hero Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 600px;" width="600"/>
+      <img align="center" border="0" src="https://images.unsplash.com/photo-1575321454403-a5b3b9f73da5?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hero Image" title="Hero Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 600px;" width="600"/>
       
     </td>
   </tr>

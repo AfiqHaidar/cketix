@@ -36,10 +36,10 @@
 
                     @if ($ticket->concert_name == $concert->name)
 
-                    <div class=" w-full flex flex-row  items-center bg-cover bg-no-repeat border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl"
-                    style="background-image: url('{{  asset($concert->image) }}');">
-                        <div class="flex flex-col w-4/5 justify-between p-4 leading-normal">
-                            <h1 class="mb-10 text-5xl font-bold tracking-tight text-white">{{ $ticket->concert_name }}</h1>
+                    <div class=" w-full flex flex-row items-center bg-cover bg-no-repeat border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl"
+                    style="background-image: url('{{  asset('storage/'.$concert->image) }}');">
+                        <div  class="flex flex-col   w-4/5 justify-between p-4 leading-normal ">
+                            <h1 class="filter-none mb-10 text-5xl font-bold tracking-tight text-white">{{ $ticket->concert_name }}</h1>
                             <div class="flex flex-row justify-start gap-5">
                                 <div class="flex justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">

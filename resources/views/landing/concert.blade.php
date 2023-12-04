@@ -1,6 +1,6 @@
 <div
   class="mb-10 hover:scale-110 h-[400px] hover:h-[500px] transition-all ease-in-out duration-1000 w-[360px] bg-cover shadow-2xl shadow-white/5 bg-no-repeat bg-start relative rounded-3xl group"
-  style="background-image: url('{{  asset($concert->image) }}');"
+  style="background-image: url('{{  asset('storage/'.$concert->image) }}');"
 >
   <div class="flex flex-col items-start justify-end px-8 w-full h-full bg-gradient-to-t from-[#0C0C0C] from-20% to-[#00000001] rounded-3xl">
     <div class="text-white font-bold font-lg pb-2 tracking-widest uppercase">
