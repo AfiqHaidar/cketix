@@ -18,10 +18,9 @@
 <div class="relative flex justify-center overflow-x-auto  sm:rounded-lg">
     <div class="w-1/3 p-10 bg-[#1A1A1A] shadow-lg rounded-lg flex-col justify-center items-center">
         <header class="pb-10 flex justify-evenly items-center">
-            <img class="h-40 object-contain w-20 rounded-lg shadow-xl" src="{{ asset('storage/' . $concert->image) }}" alt="">
             <div>
                 <h2 class="text-3xl font-medium white dark:text-gray-100">
-                    {{ __('Edit Concert') }}
+                    {{ __('Edit Venue') }}
                 </h2>
         
                 <p class="mt-1 text-sm text-gray-300 dark:text-gray-400">
@@ -29,39 +28,34 @@
                 </p>
             </div> 
         </header>
-        <form method="POST" action="{{ route('admin.updateConcert',['concert' => $concert]) }}"  enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.updateVenue',['venue' => $venue]) }}"  enctype="multipart/form-data">
  
             @csrf
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="name">Name</label>
-                <input type="text" id="name" name="name" value="{{ $concert->name }}" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5" >
+                <input type="text" id="name" name="name" value="{{ $venue->name }}" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5" >
                 @error('name')
                 <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
                 @enderror
                 </div>
- 
-            <div class="mb-6">
-                <label class="block mb-2 text-sm w-full font-medium text-white dark:text-white" for="image">Image</label>
-                <input type="file" name="image" id="image"  class="form-control-file  block w-full text-sm text-black border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none  ">
-                <p class="mt-1 text-sm text-gray-300 dark:text-gray-200" id="file_input_help">PNG or JPEG (MAX. 20MB).</p>
-                @error('image')
-                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
-                @enderror
-                </div>
-
-            <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="short_desc">Short Description</label>
-                <input type="text" id="short_desc" value="{{ $concert->short_desc }}" name="short_desc" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5 " >
-                @error('short_desc')
+            <div class="mb-6">\
+                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="address">Address</label>
+                <input type="text" id="address" value="{{ $venue->address }}" name="address" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5 " >
+                @error('address')
                 <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
                 @enderror
             </div>
-            
             <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="long_desc">Long Description</label>
-                <input type="text" id="long_desc" value="{{ $concert->long_desc }}" name="long_desc" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5 " >
-                @error('long_desc')
-                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
+                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="city">City</label>
+                
+                <select id="city_id" value="{{ $venue->city_id }}" name="city_id" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5">                    
+                    @foreach($city_id as $city_id)
+                        <option value="{{ $city_id->id }}">{{ $city_id->name }}</option>
+                    @endforeach
+                </select>
+                
+                @error('city_id')
+                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="city_input_help">{{ $message }}</p>
                 @enderror
             </div>
 

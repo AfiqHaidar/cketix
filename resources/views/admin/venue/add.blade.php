@@ -36,7 +36,7 @@
                 <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-6">
+            <div class="mb-6">\
                 <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="address">Address</label>
                 <input type="text" id="address" name="address" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5 " >
                 @error('address')
@@ -46,9 +46,9 @@
             <div class="mb-6">
                 <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="city">City</label>
                 
-                <select id="city" name="city" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5">                    
-                    @foreach($cities as $city)
-                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                <select id="city_id" name="city_id" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5">                    
+                    @foreach($city_id as $city_id)
+                        <option value="{{ $city_id->id }}">{{ $city_id->name }}</option>
                     @endforeach
                 </select>
                 

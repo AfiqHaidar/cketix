@@ -200,14 +200,15 @@ class AdminController extends Controller
     public function venue()
     {
         $venues = Venue::all();
+        $city_id = City::all();
 
-        return view('admin.venue.venue', ['venues' => $venues]);
+        return view('admin.venue.venue', ['venues' => $venues, 'city_id' => $city_id]);
     }
 
     public function addVenue()
     {
-        $cities = City::all();
-        return view('admin.venue.add', ['cities'=>$cities]);
+        $city_id = City::all();
+        return view('admin.venue.add', ['city_id'=>$city_id]);
     }
 
     public function createVenue(Request $request)
@@ -224,27 +225,24 @@ class AdminController extends Controller
 
     public function editVenue($id)
     {
+        $city_id = City::all();
         $venue = Venue::where('id', $id)->get();
-        return view('admin.venue.edit', ['venue' => $venue[0]]);
+        
+        return view('admin.venue.edit', ['venue' => $venue[0], 'city_id'=>$city_id]);
     }
 
     public function updateVenue(Venue $venue, Request $request)
     {
+        $city_id = City::all();
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:1000',
             'city_id' => 'required|integer'
-
             ]);
 
         $venue->name = $validatedData['name'];
         $venue->address = $validatedData['address'];
-
-
-        if (isset($validatedData['image'])) {
-            $imagePath = $request->file('image')->store('venues', 'public');
-            $venue->image = $imagePath;
-        }
+        $venue->city_id = $validatedData['city_id'];
 
         $venue->save();
         return redirect()->route('admin.venue');
@@ -306,5 +304,5 @@ class AdminController extends Controller
         return redirect()->route('admin.city');
     }
     
-    // ------------------------- Venue END ------------------------- //
+    // ------------------------- City END ------------------------- //
 }

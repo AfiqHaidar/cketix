@@ -44,7 +44,7 @@
                             @foreach ($venues as $venue)
                             <tr class="bg-white border-b hover:bg-gray-100 ">
                                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    CR{{ str_pad($venue->id, 3, '0', STR_PAD_LEFT); }}
+                                    VN{{ str_pad($venue->id, 3, '0', STR_PAD_LEFT); }}
                                 </th>
                                 <td class="text-center px-6 py-4">
                                     {{ $venue->name }}
@@ -53,7 +53,11 @@
                                     {{ $venue->address }}
                                 </td>
                                 <td class="text-center px-6 py-4">
-                                    {{ $venue->city_id }}
+                                    @foreach($city_id as $city)
+                                        @if($city->id == $venue->city_id)
+                                            {{ $city->name }}
+                                        @endif
+                                    @endforeach
                                 </td>
                                 <td class="flex justify-evenly items-center px-6 py-4 text-right">
                                     <a href="{{ route('admin.editVenue', ['id' => $venue->id])  }}" class="font-medium  hover:underline">Edit</a>
