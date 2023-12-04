@@ -81,11 +81,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction-history/{transaction:id}', [ProfileController::class, 'transactionReceipt'])->name('profile.receipt');
 });
 
+
+// -------- Admin ---------- //
 Route::middleware('admin')->group(function () {
-
-    // -------- Admin ---------- //
     route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
-
+    
+    // -------- Profile ---------- //
+    Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.edit');
+    Route::patch('/admin/profile', [ProfileController::class, 'update'])->name('admin.update');
+    Route::delete('/admin/profile', [ProfileController::class, 'destroy'])->name('admin.destroy');
+    
+    // -------- Guest Star ---------- //
     route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
     route::get('/admin/guest/add', [AdminController::class, 'addGuest'])->name('admin.addGuest');
     route::post('/admin/guest/create', [AdminController::class, 'createGuest'])->name('admin.createGuest');
@@ -93,7 +99,32 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/guest/update/{guest:id}', [AdminController::class, 'updateGuest'])->name('admin.updateGuest');
     route::get('/admin/guest/delete/{guest:id}', [AdminController::class, 'deleteGuest'])->name('admin.deleteGuest');
 
+    // -------- Concert ---------- //
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+    route::get('/admin/concert/add', [AdminController::class, 'addConcert'])->name('admin.addConcert');
+    route::post('/admin/concert/create', [AdminController::class, 'createConcert'])->name('admin.createConcert');
+    route::get('/admin/concert/edit/{id}', [AdminController::class, 'editConcert'])->name('admin.editConcert');
+    route::post('/admin/concert/update/{concert:id}', [AdminController::class, 'updateConcert'])->name('admin.updateConcert');
+    route::get('/admin/concert/delete/{concert:id}', [AdminController::class, 'deleteConcert'])->name('admin.deleteConcert');
+    route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+    
+    // -------- Venue ---------- //
+    route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
+    route::get('/admin/venue/add', [AdminController::class, 'addVenue'])->name('admin.addVenue');
+    route::post('/admin/venue/create', [AdminController::class, 'createVenue'])->name('admin.createVenue');
+    route::get('/admin/venue/edit/{id}', [AdminController::class, 'editVenue'])->name('admin.editVenue');
+    route::post('/admin/venue/update/{venue:id}', [AdminController::class, 'updateVenue'])->name('admin.updateVenue');
+    route::get('/admin/venue/delete/{venue:id}', [AdminController::class, 'deleteVenue'])->name('admin.deleteVenue');
+    route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
+
+    // -------- City ---------- //
+    route::get('/admin/city', [AdminController::class, 'city'])->name('admin.city');
+    route::get('/admin/city/add', [AdminController::class, 'addCity'])->name('admin.addCity');
+    route::post('/admin/city/create', [AdminController::class, 'createCity'])->name('admin.createCity');
+    route::get('/admin/city/edit/{id}', [AdminController::class, 'editCity'])->name('admin.editCity');
+    route::post('/admin/city/update/{city:id}', [AdminController::class, 'updateCity'])->name('admin.updateCity');
+    route::get('/admin/city/delete/{city:id}', [AdminController::class, 'deleteCity'])->name('admin.deleteCity');
+    route::get('/admin/city', [AdminController::class, 'city'])->name('admin.city');
 });
 
 
