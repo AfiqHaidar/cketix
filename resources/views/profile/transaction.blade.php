@@ -55,6 +55,8 @@
                 <td class="px-6 py-4 text-center">
                     @if ($transaction->status == 'PAID')
                     <a href="{{ route('profile.receipt', ['transaction' => $transaction ]) }}" class="font-medium  hover:underline">Receipt</a>
+                    @elseif ($transaction->status == 'CANCELED')
+                    <p>-</p>
                     @else
                     
                     <form method="POST" action="{{ route('ticket.payment', ['transaction' => $transaction ]) }}"  enctype="multipart/form-data">

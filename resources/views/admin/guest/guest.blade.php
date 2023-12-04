@@ -53,7 +53,7 @@
                     {{ $guest->image }}
                 </td>
                 <td class="text-center px-6 py-4">
-                    {{ $guest->pqoute }}
+                    {{ $guest->pquote }}
                 </td>
                 <td class="flex justify-evenly items-center px-6 py-4 text-right">
                     <a href="{{ route('admin.editGuest', ['id' => $guest->id])  }}" class="font-medium  hover:underline">Edit</a>

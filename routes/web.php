@@ -101,6 +101,11 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/guest/update/{guest:id}', [AdminController::class, 'updateGuest'])->name('admin.updateGuest');
     route::get('/admin/guest/delete/{guest:id}', [AdminController::class, 'deleteGuest'])->name('admin.deleteGuest');
 
+    route::get('/admin/transaction', [AdminController::class, 'transaction'])->name('admin.transaction');
+    route::get('/admin/payment/{transaction:id}', [AdminController::class, 'payment'])->name('admin.payment');
+    route::get('/admin/payment-accept/{transaction:id}', [AdminController::class, 'acceptPayment'])->name('admin.acceptPayment');
+    route::get('/admin/payment-decline/{transaction:id}', [AdminController::class, 'declinePayment'])->name('admin.declinePayment');
+
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
 });
 

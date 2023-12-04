@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Guest;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -73,6 +74,34 @@ class AdminController extends Controller
     {
         $guest->delete();
         return redirect()->route('admin.guest');
+    }
+
+    public function transaction()
+    {
+        $transactions = Transaction::all();
+
+        return view('admin.transaction.transaction', ['transactions' => $transactions]);
+    }
+
+    public function payment(Transaction $transaction)
+    {
+        return view('admin.transaction.payment', ['transaction' => $transaction]);
+    }
+
+    public function acceptPayment(Transaction $transaction)
+    {
+        $transaction->status = 'PAID';
+        $transaction->save();
+
+        return redirect()->route('admin.transaction');
+    }
+
+    public function declinePayment(Transaction $transaction)
+    {
+        $transaction->status = 'CANCELED';
+        $transaction->save();
+
+        return redirect()->route('admin.transaction');
     }
 
     public function concert()
