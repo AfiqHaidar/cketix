@@ -77,6 +77,21 @@ class ConcertController extends Controller
         ]);
     }
 
+    public function indexSearch(Request $request)
+    {
+        $validatedData = $request->validate([
+            'csearch' => 'string|max:255',
+        ]);
+
+        // Perform the search using Eloquent
+        $concerts = Concert::where('name', 'like', '%' . $validatedData['csearch'] . '%')->get();
+
+        return view('concert.indexSearch', [
+            'concerts' => $concerts,
+        ]);
+    }
+
+
     public function show($id)
     {
         $details = ConcertDetail::where('concert_id', $id)->get();

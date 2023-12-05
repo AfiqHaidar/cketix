@@ -28,6 +28,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+// --------- Search -------------- //
+
+Route::post('/concert/search', [
+    ConcertController::class, 'indexSearch'
+])->middleware(['auth', 'verified'])->name('concert.index.search');
+
+
 // --------- Concert -------------- //
 
 Route::get('/dashboard', [
