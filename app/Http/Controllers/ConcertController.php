@@ -89,7 +89,7 @@ class ConcertController extends Controller
         return view('concert.indexSearch', [
             'concerts' => $concerts,
         ]);
-    }
+    }
 
 
     public function show($id)
