@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Jobs\SendTicketMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,6 +39,7 @@ class TransactionController extends Controller
             'total' => $totalPrice,
             'user_id' => $user->id,
             'payment_method_id' => $request->input('payment-method'),
+            'status' => 'UNPAID',
         ]);
 
 
@@ -61,6 +62,29 @@ class TransactionController extends Controller
             $category->decrement('seat');
         }
 
-        return redirect()->route('profile.receipt', ['transaction' => $transaction]);
+        // // mail handling
+        // $userMailData = $user;
+        // $transactionMailData = $transaction;
+        // $ticketMailData =  $request->input('ticket');
+        // $catMailData = $category;
+
+        // dispatch(new SendTicketMail($ticketMailData, $transactionMailData, $catMailData, $userMailData));
+
+        return redirect()->route('profile.transaction');
+    }
+
+    public function transactionPayment(Transaction $transaction, Request $request)
+    {
+        $validatedData = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
+        ]);
+        $imagePath = $request->file('image')->store('receipts', 'public');
+
+        $transaction->status = 'PROCESS';
+        $transaction->receipt = $imagePath;
+
+        $transaction->save();
+
+        return redirect()->route('profile.transaction');
     }
 }

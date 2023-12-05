@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Module\Banner\Presentation\Controller\BannerController;
 use App\Models\Guest;
+use App\Models\Banner;
+use App\Models\Transaction;
 use App\Models\Concert;
 use App\Models\Venue;
 use App\Models\City;
@@ -11,6 +14,7 @@ use App\Models\PaymentMethod;
 use App\Models\GuestDetail;
 use App\Models\ConcertDetail;
 use App\Models\Catagory;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -130,10 +134,36 @@ class AdminController extends Controller
         return redirect()->route('admin.guest');
     }
 
-    // ------------------------- GUEST END ------------------------- //
 
-    // ------------------------- Concert ------------------------- //
-    
+    public function transaction()
+    {
+        $transactions = Transaction::all();
+
+        return view('admin.transaction.transaction', ['transactions' => $transactions]);
+    }
+
+    public function payment(Transaction $transaction)
+    {
+        return view('admin.transaction.payment', ['transaction' => $transaction]);
+    }
+
+    public function acceptPayment(Transaction $transaction)
+    {
+        $transaction->status = 'PAID';
+        $transaction->save();
+
+        return redirect()->route('admin.transaction');
+    }
+
+    public function declinePayment(Transaction $transaction)
+    {
+        $transaction->status = 'CANCELED';
+        $transaction->save();
+
+        return redirect()->route('admin.transaction');
+    }
+
+
     public function concert()
     {
         $concerts = Concert::all();
@@ -583,6 +613,31 @@ class AdminController extends Controller
         $categories->delete();
         return redirect()->route('admin.categories');
     }
-    
-    // ------------------------- CATEGORIES END ------------------------- //
+
+
+    private BannerController $bannerController;
+
+    public function __construct(BannerController $bc)
+    {
+        $this->bannerController = $bc;
+    }
+
+    public function banner()
+    {
+        $banners = $this->bannerController->getAllBanners();
+
+        return view('admin.banner.banner', ['banners' => $banners]);
+    }
+
+    public function addBanner()
+    {
+        return view('admin.banner.add');
+    }
+
+    public function editBanner($id)
+    {
+        $banner = Banner::where('id', $id)->get();
+        return view('admin.banner.edit', ['banner' => $banner[0]]);
+    }
 }
+

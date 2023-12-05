@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Jobs\SendConcertPromotion;
+use App\Jobs\SendTicketMail;
+use App\Models\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +15,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+
+        $users = User::all();
+        foreach ($users as $user) {
+            $schedule->job(new SendConcertPromotion($user))->everyMinute();
+        }
     }
 
     /**

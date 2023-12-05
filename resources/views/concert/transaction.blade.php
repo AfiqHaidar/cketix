@@ -4,7 +4,7 @@
 
         <div class="flex flex-row bg-white items-center justify-evenly rounded-xl max-w-7xl mx-auto">
             <div class="w-1/2  pl-10 py-5 flex justify-center items-center  ">
-                 <img class="w-4/5 rounded-xl shadow " src="{{ $detail->map }}" alt="">
+                 <img class="w-4/5 rounded-xl shadow " src=" {{ asset('storage/'.$detail->map) }}" alt="">
             </div>
            
             <div class="rounded-xl flex flex-col py-5 justify-between w-1/2 ">
@@ -33,7 +33,7 @@
                                         </p>
                                     </div>
                                     <div class="inline-flex mr-5 items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        {{ $cat->price }}
+                                        Rp {{ $cat->price }}
                                     </div>
                                 </a>
                             </li>  
