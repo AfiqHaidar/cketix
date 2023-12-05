@@ -7,6 +7,9 @@ use App\Models\Guest;
 use App\Models\Concert;
 use App\Models\Venue;
 use App\Models\City;
+use App\Models\PaymentMethod;
+use App\Models\GuestDetail;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -305,4 +308,110 @@ class AdminController extends Controller
     }
     
     // ------------------------- City END ------------------------- //
+
+    // ------------------------- Payment method ------------------------- //
+
+    public function payment()
+    {
+        $payments = PaymentMethod::all();
+
+        return view('admin.payment.payment', ['payments' => $payments]);
+    }
+
+    public function addPayment()
+    {
+        return view('admin.payment.add');
+    }
+
+    public function createPayment(Request $request)
+    {
+        $validatedData = $request->validate([
+            'payment' => 'required|string|max:255',
+        ]);
+
+        $payment = PaymentMethod::create($validatedData);
+        $payment->payment = $validatedData['payment'];
+        $payment->save();
+        return redirect(route('admin.payment'));
+    }
+
+    public function editPayment($id)
+    {
+        $payment = PaymentMethod::where('id', $id)->get();
+        return view('admin.payment.edit', ['payment' => $payment[0]]);
+    }
+
+    public function updatePayment(PaymentMethod $payment, Request $request)
+    {
+        $validatedData = $request->validate([
+            'payment' => 'required|string|max:255',
+            ]);
+
+        $payment->payment = $validatedData['payment'];
+
+        $payment->save();
+        return redirect()->route('admin.payment');
+    }
+
+    public function deletePayment(PaymentMethod $payment)
+    {
+        $payment->delete();
+        return redirect()->route('admin.payment');
+    }
+    
+    // ------------------------- Payment method END ------------------------- //
+
+
+    // ------------------------- GUEST STAR DETAIL ------------------------- //
+
+    public function payment()
+    {
+        $payments = PaymentMethod::all();
+
+        return view('admin.payment.payment', ['payments' => $payments]);
+    }
+
+    public function addPayment()
+    {
+        return view('admin.payment.add');
+    }
+
+    public function createPayment(Request $request)
+    {
+        $validatedData = $request->validate([
+            'payment' => 'required|string|max:255',
+        ]);
+
+        $payment = PaymentMethod::create($validatedData);
+        $payment->payment = $validatedData['payment'];
+        $payment->save();
+        return redirect(route('admin.payment'));
+    }
+
+    public function editPayment($id)
+    {
+        $payment = PaymentMethod::where('id', $id)->get();
+        return view('admin.payment.edit', ['payment' => $payment[0]]);
+    }
+
+    public function updatePayment(PaymentMethod $payment, Request $request)
+    {
+        $validatedData = $request->validate([
+            'payment' => 'required|string|max:255',
+            ]);
+
+        $payment->payment = $validatedData['payment'];
+
+        $payment->save();
+        return redirect()->route('admin.payment');
+    }
+
+    public function deletePayment(PaymentMethod $payment)
+    {
+        $payment->delete();
+        return redirect()->route('admin.payment');
+    }
+    
+    // ------------------------- GUEST STAR DETAIL END ------------------------- //
+    
 }

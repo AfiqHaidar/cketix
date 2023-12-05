@@ -90,7 +90,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.edit');
     Route::patch('/admin/profile', [ProfileController::class, 'update'])->name('admin.update');
     Route::delete('/admin/profile', [ProfileController::class, 'destroy'])->name('admin.destroy');
-    
+
     // -------- Guest Star ---------- //
     route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
     route::get('/admin/guest/add', [AdminController::class, 'addGuest'])->name('admin.addGuest');
@@ -107,6 +107,14 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/concert/update/{concert:id}', [AdminController::class, 'updateConcert'])->name('admin.updateConcert');
     route::get('/admin/concert/delete/{concert:id}', [AdminController::class, 'deleteConcert'])->name('admin.deleteConcert');
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+    
+    // -------- Guest Star Details---------- //
+    route::get('/admin/guest_details', [AdminController::class, 'guest_details'])->name('admin.guest_details');
+    route::get('/admin/guest_details/add', [AdminController::class, 'addGuestDetails'])->name('admin.addGuestDetails');
+    route::post('/admin/guest_details/create', [AdminController::class, 'createGuestDetails'])->name('admin.createGuestDetails');
+    route::get('/admin/guest_details/edit/{id}', [AdminController::class, 'editGuestDetails'])->name('admin.editGuestDetails');
+    route::post('/admin/guest_details/update/{guest_details:id}', [AdminController::class, 'updateGuestDetails'])->name('admin.updateGuestDetails');
+    route::get('/admin/guest_details/delete/{guest_details:id}', [AdminController::class, 'deleteGuestDetails'])->name('admin.deleteGuestDetails');    
     
     // -------- Venue ---------- //
     route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
@@ -125,6 +133,15 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/city/update/{city:id}', [AdminController::class, 'updateCity'])->name('admin.updateCity');
     route::get('/admin/city/delete/{city:id}', [AdminController::class, 'deleteCity'])->name('admin.deleteCity');
     route::get('/admin/city', [AdminController::class, 'city'])->name('admin.city');
+    
+    // -------- Payment Method ---------- //
+    route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
+    route::get('/admin/payment/add', [AdminController::class, 'addPayment'])->name('admin.addPayment');
+    route::post('/admin/payment/create', [AdminController::class, 'createPayment'])->name('admin.createPayment');
+    route::get('/admin/payment/edit/{id}', [AdminController::class, 'editPayment'])->name('admin.editPayment');
+    route::post('/admin/payment/update/{payment:id}', [AdminController::class, 'updatePayment'])->name('admin.updatePayment');
+    route::get('/admin/payment/delete/{payment:id}', [AdminController::class, 'deletePayment'])->name('admin.deletePayment');
+    route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
 });
 
 
