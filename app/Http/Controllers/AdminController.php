@@ -9,7 +9,6 @@ use App\Models\Venue;
 use App\Models\City;
 use App\Models\PaymentMethod;
 use App\Models\GuestDetail;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -364,52 +363,69 @@ class AdminController extends Controller
 
     // ------------------------- GUEST STAR DETAIL ------------------------- //
 
-    public function payment()
+    public function guest_details()
     {
-        $payments = PaymentMethod::all();
+        $guest_details = GuestDetail::all();
+        $concert_id = Concert::all();
+        $guest_id = Guest::all();
 
-        return view('admin.payment.payment', ['payments' => $payments]);
+        return view('admin.guest_details.guest_details', ['guest_details' => $guest_details, 
+                                            'concert_id' => $concert_id, 
+                                            'guest_id' => $guest_id]);
     }
 
-    public function addPayment()
+    public function addGuestDetails()
     {
-        return view('admin.payment.add');
+        $concert_id = Concert::all();
+        $guest_id = Guest::all();
+        return view('admin.guest_details.add', ['concert_id' => $concert_id, 
+                                            'guest_id' => $guest_id]);
     }
 
-    public function createPayment(Request $request)
+    public function createGuestDetails(Request $request)
     {
+        $concert_id = Concert::all();
+        $guest_id = Guest::all();
         $validatedData = $request->validate([
-            'payment' => 'required|string|max:255',
+            'concert_id' => 'required|integer',
+            'guest_id' => 'required|integer',
         ]);
 
-        $payment = PaymentMethod::create($validatedData);
-        $payment->payment = $validatedData['payment'];
-        $payment->save();
-        return redirect(route('admin.payment'));
+        $guest_details = GuestDetail::create($validatedData);
+        return redirect(route('admin.guest_details'));
     }
 
-    public function editPayment($id)
+    public function editGuestDetails($id)
     {
-        $payment = PaymentMethod::where('id', $id)->get();
-        return view('admin.payment.edit', ['payment' => $payment[0]]);
+        $concert_id = Concert::all();
+        $guest_id = Guest::all();
+        $guest_details = GuestDetail::where('id', $id)->get();
+        return view('admin.guest_details.edit', ['guest_details' => $guest_details[0],
+                                                'concert_id' => $concert_id, 
+                                                'guest_id' => $guest_id]);
     }
 
-    public function updatePayment(PaymentMethod $payment, Request $request)
+    public function updateGuestDetails(GuestDetail $guest_details, Request $request)
     {
+        $concert_id = Concert::all();
+        $guest_id = Guest::all();
         $validatedData = $request->validate([
-            'payment' => 'required|string|max:255',
+            'concert_id' => 'required|integer',
+            'guest_id' => 'required|integer',
             ]);
 
-        $payment->payment = $validatedData['payment'];
+        $guest_details->concert_id = $validatedData['concert_id'];
+        $guest_details->guest_id = $validatedData['guest_id'];
 
-        $payment->save();
-        return redirect()->route('admin.payment');
+    
+        $guest_details->save();
+        return redirect()->route('admin.guest_details');
     }
 
-    public function deletePayment(PaymentMethod $payment)
+    public function deleteGuestDetails(GuestDetail $guest_details)
     {
-        $payment->delete();
-        return redirect()->route('admin.payment');
+        $guest_details->delete();
+        return redirect()->route('admin.guest_details');
     }
     
     // ------------------------- GUEST STAR DETAIL END ------------------------- //

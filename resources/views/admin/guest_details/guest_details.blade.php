@@ -12,7 +12,7 @@
 
     <div class="px-4 w-3/4">
         <div class="px-5 py-2 mx-auto my-3 hover:text-white bg-gray-300 hover:bg-white shadow-lg rounded-lg w-fit">
-            <a href=" {{ route('admin.addVenue') }}"  class="text-black">Add venue</a>
+            <a href=" {{ route('admin.addGuestDetails') }}"  class="text-black">Add Guest Details</a>
         </div>
         
         <div class="rounded-xl dark:border-gray-700">
@@ -38,27 +38,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($venues as $venue)
+                            @foreach ($guest_details as $guest_details)
                             <tr class="bg-white border-b hover:bg-gray-100 ">
                                 <th scope="row" class="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    VN{{ str_pad($venue->id, 3, '0', STR_PAD_LEFT); }}
+                                    GD{{ str_pad($guest_details->id, 3, '0', STR_PAD_LEFT); }}
                                 </th>
                                 <td class="text-center px-6 py-4">
-                                    {{ $venue->name }}
+                                    @foreach($concert_id as $concert)
+                                        @if($concert->id == $guest_details->concert_id)
+                                            {{ $concert->name }}
+                                        @endif
+                                    @endforeach
                                 </td>
                                 <td class="text-center px-6 py-4">
-                                    {{ $venue->address }}
-                                </td>
-                                <td class="text-center px-6 py-4">
-                                    @foreach($city_id as $city)
-                                        @if($city->id == $venue->city_id)
-                                            {{ $city->name }}
+                                    @foreach($guest_id as $guest)
+                                        @if($guest->id == $guest_details->guest_id)
+                                            {{ $guest->name }}
                                         @endif
                                     @endforeach
                                 </td>
                                 <td class="flex justify-evenly items-center px-6 py-4 text-right">
-                                    <a href="{{ route('admin.editVenue', ['id' => $venue->id])  }}" class="font-medium  hover:underline">Edit</a>
-                                    <a href="{{ route('admin.deleteVenue', ['venue' => $venue]) }}" class="font-medium  hover:underline">Delete</a>
+                                    <a href="{{ route('admin.editGuestDetails', ['id' => $guest_details->id])  }}" class="font-medium  hover:underline">Edit</a>
+                                    <a href="{{ route('admin.deleteGuestDetails', ['guest_details' => $guest_details]) }}" class="font-medium  hover:underline">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

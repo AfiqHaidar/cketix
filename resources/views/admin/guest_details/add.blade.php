@@ -19,44 +19,43 @@
     <div class="w-1/3 p-10 bg-[#1A1A1A] shadow-lg rounded-lg flex-col justify-center items-center">
         <header class="pb-10">
             <h2 class="text-3xl font-medium white dark:text-gray-100">
-                {{ __('Add Venue') }}
+                {{ __('Add Guest Details') }}
             </h2>
     
             <p class="mt-1 text-sm text-gray-300 dark:text-gray-400">
                 {{ __("Fill  all the forms below") }}
             </p>
         </header>
-        <form method="POST" action="{{ route('admin.createVenue') }}"  enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.createGuestDetails') }}"  enctype="multipart/form-data">
 
             @csrf
             <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="name">Venue Name</label>
-                <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5">
-                @error('name')
-                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="mb-6">\
-                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="address">Address</label>
-                <input type="text" id="address" name="address" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5 " >
-                @error('address')
-                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="city">City</label>
+                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="concert_id">Concert</label>
                 
-                <select id="city_id" name="city_id" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5">                    
-                    @foreach($city_id as $city_id)
-                        <option value="{{ $city_id->id }}">{{ $city_id->name }}</option>
+                <select id="concert_id" name="concert_id" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5">                    
+                    @foreach($concert_id as $concert_id)
+                        <option value="{{ $concert_id->id }}">{{ $concert_id->name }}</option>
                     @endforeach
                 </select>
                 
-                @error('city_id')
+                @error('concert_id')
                 <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="city_input_help">{{ $message }}</p>
                 @enderror
             </div>
 
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="guest_id">Guest</label>
+                
+                <select id="guest_id" name="guest_id" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg block w-full p-2.5">                    
+                    @foreach($guest_id as $guest_id)
+                        <option value="{{ $guest_id->id }}">{{ $guest_id->name }}</option>
+                    @endforeach
+                </select>
+                
+                @error('guest_id')
+                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="city_input_help">{{ $message }}</p>
+                @enderror
+            </div>
              <div class="my-2 pt-10 flex justify-center">
                  <button type="submit" class="rounded-lg group w-full flex justify-center items-center bg-gray-500 px-3.5 py-2 font-com text-sm capitalize text-white shadow shadow-black/60 hover:bg-slate-50 hover:text-gray-800" >Add</button>
              </div>
