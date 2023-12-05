@@ -89,12 +89,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction-history/{transaction:id}', [ProfileController::class, 'transactionReceipt'])->name('profile.receipt');
 });
 
-// -------- Admin ---------- //
 
+// -------- Admin ---------- //
 Route::middleware('admin')->group(function () {
 
     route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
+    
+    // -------- Profile ---------- //
+    Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.edit');
+    Route::patch('/admin/profile', [ProfileController::class, 'update'])->name('admin.update');
+    Route::delete('/admin/profile', [ProfileController::class, 'destroy'])->name('admin.destroy');
 
+    // -------- Guest Star ---------- //
     route::get('/admin/guest', [AdminController::class, 'guest'])->name('admin.guest');
     route::get('/admin/guest/add', [AdminController::class, 'addGuest'])->name('admin.addGuest');
     route::post('/admin/guest/create', [AdminController::class, 'createGuest'])->name('admin.createGuest');
@@ -102,17 +108,79 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/guest/update/{guest:id}', [AdminController::class, 'updateGuest'])->name('admin.updateGuest');
     route::get('/admin/guest/delete/{guest:id}', [AdminController::class, 'deleteGuest'])->name('admin.deleteGuest');
 
+    // -------- Transaction ---------- //
     route::get('/admin/transaction', [AdminController::class, 'transaction'])->name('admin.transaction');
     route::get('/admin/payment/{transaction:id}', [AdminController::class, 'payment'])->name('admin.payment');
     route::get('/admin/payment-accept/{transaction:id}', [AdminController::class, 'acceptPayment'])->name('admin.acceptPayment');
     route::get('/admin/payment-decline/{transaction:id}', [AdminController::class, 'declinePayment'])->name('admin.declinePayment');
-
-    route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
-
+  
+     // -------- Banner ---------- //
     route::get('/admin/banner', [AdminController::class, 'banner'])->name('admin.banner');
     route::get('/admin/banner/add', [AdminController::class, 'addBanner'])->name('admin.addBanner');
     route::get('/admin/banner/edit/{id}', [AdminController::class, 'editBanner'])->name('admin.editBanner');
     // route::post('/admin/banner/create', [AdminController::class, 'createBanner'])->name('admin.createBanner');
+
+    // -------- Concert ---------- //
+    route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+    route::get('/admin/concert/add', [AdminController::class, 'addConcert'])->name('admin.addConcert');
+    route::post('/admin/concert/create', [AdminController::class, 'createConcert'])->name('admin.createConcert');
+    route::get('/admin/concert/edit/{id}', [AdminController::class, 'editConcert'])->name('admin.editConcert');
+    route::post('/admin/concert/update/{concert:id}', [AdminController::class, 'updateConcert'])->name('admin.updateConcert');
+    route::get('/admin/concert/delete/{concert:id}', [AdminController::class, 'deleteConcert'])->name('admin.deleteConcert');
+    route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
+    
+    // -------- Guest Star Details---------- //
+    route::get('/admin/guest_details', [AdminController::class, 'guest_details'])->name('admin.guest_details');
+    route::get('/admin/guest_details/add', [AdminController::class, 'addGuestDetails'])->name('admin.addGuestDetails');
+    route::post('/admin/guest_details/create', [AdminController::class, 'createGuestDetails'])->name('admin.createGuestDetails');
+    route::get('/admin/guest_details/edit/{id}', [AdminController::class, 'editGuestDetails'])->name('admin.editGuestDetails');
+    route::post('/admin/guest_details/update/{guest_details:id}', [AdminController::class, 'updateGuestDetails'])->name('admin.updateGuestDetails');
+    route::get('/admin/guest_details/delete/{guest_details:id}', [AdminController::class, 'deleteGuestDetails'])->name('admin.deleteGuestDetails');    
+    
+    // -------- Concert Details---------- //
+    route::get('/admin/concert_details', [AdminController::class, 'concert_details'])->name('admin.concert_details');
+    route::get('/admin/concert_details/add', [AdminController::class, 'addConcertDetails'])->name('admin.addConcertDetails');
+    route::post('/admin/concert_details/create', [AdminController::class, 'createConcertDetails'])->name('admin.createConcertDetails');
+    route::get('/admin/concert_details/edit/{id}', [AdminController::class, 'editConcertDetails'])->name('admin.editConcertDetails');
+    route::post('/admin/concert_details/update/{concert_details:id}', [AdminController::class, 'updateConcertDetails'])->name('admin.updateConcertDetails');
+    route::get('/admin/concert_details/delete/{concert_details:id}', [AdminController::class, 'deleteConcertDetails'])->name('admin.deleteConcertDetails');  
+
+    // -------- Venue ---------- //
+    route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
+    route::get('/admin/venue/add', [AdminController::class, 'addVenue'])->name('admin.addVenue');
+    route::post('/admin/venue/create', [AdminController::class, 'createVenue'])->name('admin.createVenue');
+    route::get('/admin/venue/edit/{id}', [AdminController::class, 'editVenue'])->name('admin.editVenue');
+    route::post('/admin/venue/update/{venue:id}', [AdminController::class, 'updateVenue'])->name('admin.updateVenue');
+    route::get('/admin/venue/delete/{venue:id}', [AdminController::class, 'deleteVenue'])->name('admin.deleteVenue');
+    route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
+
+    // -------- City ---------- //
+    route::get('/admin/city', [AdminController::class, 'city'])->name('admin.city');
+    route::get('/admin/city/add', [AdminController::class, 'addCity'])->name('admin.addCity');
+    route::post('/admin/city/create', [AdminController::class, 'createCity'])->name('admin.createCity');
+    route::get('/admin/city/edit/{id}', [AdminController::class, 'editCity'])->name('admin.editCity');
+    route::post('/admin/city/update/{city:id}', [AdminController::class, 'updateCity'])->name('admin.updateCity');
+    route::get('/admin/city/delete/{city:id}', [AdminController::class, 'deleteCity'])->name('admin.deleteCity');
+    route::get('/admin/city', [AdminController::class, 'city'])->name('admin.city');
+    
+    // -------- Payment Method ---------- //
+    route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
+    route::get('/admin/payment/add', [AdminController::class, 'addPayment'])->name('admin.addPayment');
+    route::post('/admin/payment/create', [AdminController::class, 'createPayment'])->name('admin.createPayment');
+    route::get('/admin/payment/edit/{id}', [AdminController::class, 'editPayment'])->name('admin.editPayment');
+    route::post('/admin/payment/update/{payment:id}', [AdminController::class, 'updatePayment'])->name('admin.updatePayment');
+    route::get('/admin/payment/delete/{payment:id}', [AdminController::class, 'deletePayment'])->name('admin.deletePayment');
+    route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
+
+    // -------- Category ---------- //
+    route::get('/admin/categories', [AdminController::class, 'categories'])->name('admin.categories');
+    route::get('/admin/categories/add', [AdminController::class, 'addCategories'])->name('admin.addCategories');
+    route::post('/admin/categories/create', [AdminController::class, 'createCategories'])->name('admin.createCategories');
+    route::get('/admin/categories/edit/{id}', [AdminController::class, 'editCategories'])->name('admin.editCategories');
+    route::post('/admin/categories/update/{categories:id}', [AdminController::class, 'updateCategories'])->name('admin.updateCategories');
+    route::get('/admin/categories/delete/{categories:id}', [AdminController::class, 'deleteCategories'])->name('admin.deleteCategories');
+    route::get('/admin/categories', [AdminController::class, 'categories'])->name('admin.categories');
+
 });
 
 
