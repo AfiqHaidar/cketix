@@ -1,4 +1,5 @@
-![image](https://github.com/AfiqHaidar/cketix/assets/114663340/f3965295-60e3-468f-a974-ccd9d53d8a9a)
+
+![cketix](https://github.com/AfiqHaidar/cketix/assets/114663340/4f87d097-72bb-4140-b3cf-0b67c47a9559)
 
 # Final Project Pemrograman Berbasis Kerangka Kerja (C)
 
