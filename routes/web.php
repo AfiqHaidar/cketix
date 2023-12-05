@@ -116,6 +116,14 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/guest_details/update/{guest_details:id}', [AdminController::class, 'updateGuestDetails'])->name('admin.updateGuestDetails');
     route::get('/admin/guest_details/delete/{guest_details:id}', [AdminController::class, 'deleteGuestDetails'])->name('admin.deleteGuestDetails');    
     
+    // -------- Concert Details---------- //
+    route::get('/admin/concert_details', [AdminController::class, 'concert_details'])->name('admin.concert_details');
+    route::get('/admin/concert_details/add', [AdminController::class, 'addConcertDetails'])->name('admin.addConcertDetails');
+    route::post('/admin/concert_details/create', [AdminController::class, 'createConcertDetails'])->name('admin.createConcertDetails');
+    route::get('/admin/concert_details/edit/{id}', [AdminController::class, 'editConcertDetails'])->name('admin.editConcertDetails');
+    route::post('/admin/concert_details/update/{concert_details:id}', [AdminController::class, 'updateConcertDetails'])->name('admin.updateConcertDetails');
+    route::get('/admin/concert_details/delete/{concert_details:id}', [AdminController::class, 'deleteConcertDetails'])->name('admin.deleteConcertDetails');  
+
     // -------- Venue ---------- //
     route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
     route::get('/admin/venue/add', [AdminController::class, 'addVenue'])->name('admin.addVenue');
@@ -142,6 +150,15 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/payment/update/{payment:id}', [AdminController::class, 'updatePayment'])->name('admin.updatePayment');
     route::get('/admin/payment/delete/{payment:id}', [AdminController::class, 'deletePayment'])->name('admin.deletePayment');
     route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
+
+    // -------- Category ---------- //
+    route::get('/admin/categories', [AdminController::class, 'categories'])->name('admin.categories');
+    route::get('/admin/categories/add', [AdminController::class, 'addCategories'])->name('admin.addCategories');
+    route::post('/admin/categories/create', [AdminController::class, 'createCategories'])->name('admin.createCategories');
+    route::get('/admin/categories/edit/{id}', [AdminController::class, 'editCategories'])->name('admin.editCategories');
+    route::post('/admin/categories/update/{categories:id}', [AdminController::class, 'updateCategories'])->name('admin.updateCategories');
+    route::get('/admin/categories/delete/{categories:id}', [AdminController::class, 'deleteCategories'])->name('admin.deleteCategories');
+    route::get('/admin/categories', [AdminController::class, 'categories'])->name('admin.categories');
 });
 
 

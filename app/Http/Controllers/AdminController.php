@@ -9,6 +9,8 @@ use App\Models\Venue;
 use App\Models\City;
 use App\Models\PaymentMethod;
 use App\Models\GuestDetail;
+use App\Models\ConcertDetail;
+use App\Models\Catagory;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -430,4 +432,157 @@ class AdminController extends Controller
     
     // ------------------------- GUEST STAR DETAIL END ------------------------- //
     
+    // ------------------------- CONCERT DETAIL ------------------------- //
+
+    public function concert_details()
+    {
+        $concert_details = ConcertDetail::all();
+        $concert_id = Concert::all();
+        $venue_id = Venue::all();
+
+        return view('admin.concert_details.concert_details', ['concert_details' => $concert_details, 
+                                                            'concert_id' => $concert_id, 
+                                                            'venue_id' => $venue_id]);
+    }
+
+    public function addConcertDetails()
+    {
+        $concert_id = Concert::all();
+        $venue_id = Venue::all();
+        return view('admin.concert_details.add', ['concert_id' => $concert_id, 
+                                                'venue_id' => $venue_id]);
+    }
+
+    public function createConcertDetails(Request $request)
+    {
+        $concert_id = Concert::all();
+        $venue_id = Venue::all();
+        $validatedData = $request->validate([
+            'date' => 'required|date',
+            'concert_id' => 'required|integer',
+            'venue_id' => 'required|integer',
+            'map' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048'
+        ]);
+
+        $mapPath = $request->file('map')->store('maps', 'public');
+        $validatedData['map'] = $mapPath;
+
+        $concert_details = ConcertDetail::create($validatedData);
+        return redirect(route('admin.concert_details'));
+    }
+
+    public function editConcertDetails($id)
+    {
+        $concert_id = Concert::all();
+        $venue_id = Venue::all();
+        $concert_details = ConcertDetail::where('id', $id)->get();
+        return view('admin.concert_details.edit', ['concert_details' => $concert_details[0],
+                                                'concert_id' => $concert_id, 
+                                                'venue_id' => $venue_id]);
+    }
+
+    public function updateConcertDetails(ConcertDetail $concert_details, Request $request)
+    {
+        $concert_id = Concert::all();
+        $venue_id = Venue::all();
+        $validatedData = $request->validate([
+            'date' => 'required|date',
+            'concert_id' => 'required|integer',
+            'venue_id' => 'required|integer',
+            'map' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048'
+            ]);
+
+        $concert_details->concert_id = $validatedData['concert_id'];
+        $concert_details->venue_id = $validatedData['venue_id'];
+
+        $mapPath = $request->file('map')->store('maps', 'public');
+        $concert_details->map = $mapPath;    
+    
+        $concert_details->save();
+        return redirect()->route('admin.concert_details');
+    }
+
+    public function deleteConcertDetails(ConcertDetail $concert_details)
+    {
+        $concert_details->delete();
+        return redirect()->route('admin.concert_details');
+    }
+    
+    // ------------------------- CONCERT DETAIL END ------------------------- //
+    
+    // ------------------------- CATEGORIES ------------------------- //
+
+    public function categories()
+    {
+        $categories = Catagory::all();
+        // concert details id
+        $concert_details = ConcertDetail::all();
+        $concert = Concert::all();
+
+
+        return view('admin.categories.categories', ['categories' => $categories, 
+                                                    'concert_details' => $concert_details,
+                                                    'concert' => $concert ]);
+    }
+
+    public function addCategories()
+    {
+        $concert_details = ConcertDetail::all();
+        return view('admin.concert_details.add', ['concert_details' => $concert_details]);
+    }
+
+    public function createCategories(Request $request)
+    {
+        $concert_details = ConcertDetail::all();
+        
+        $validatedData = $request->validate([
+            'seat' => 'required|numeric',
+            'code' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'concert_details' => 'required|integer',
+            'venue_id' => 'required|integer',
+            'description' => 'required|string|max:1048',
+        ]);
+
+        $categories = Catagory::create($validatedData);
+        return redirect(route('admin.categories'));
+    }
+
+    public function editCategories($id)
+    {
+        $concert_details = ConcertDetail::all();
+        $venue_id = Venue::all();
+        $categories = Catagory::where('id', $id)->get();
+        return view('admin.concert_details.edit', ['categories' => $categories[0],
+                                                'concert_details' => $concert_details, 
+                                                'venue_id' => $venue_id]);
+    }
+
+    public function updateCategories(Catagory $categories, Request $request)
+    {
+        $concert_details = ConcertDetail::all();
+        $venue_id = Venue::all();
+        $validatedData = $request->validate([
+            'seat' => 'required|numeric',
+            'code' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'concert_details' => 'required|integer',
+            'venue_id' => 'required|integer',
+            'description' => 'required|string|max:1048',
+            ]);
+
+        $concert_details->concert_details = $validatedData['concert_details'];
+        $concert_details->venue_id = $validatedData['venue_id']; 
+    
+        $categories->save();
+        return redirect()->route('admin.categories');
+    }
+
+    public function deleteCategories(Catagory $categories)
+    {
+        $categories->delete();
+        return redirect()->route('admin.categories');
+    }
+    
+    // ------------------------- CATEGORIES END ------------------------- //
 }
