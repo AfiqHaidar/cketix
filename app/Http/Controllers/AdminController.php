@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Module\Banner\Presentation\Controller\BannerController;
 use App\Models\Guest;
+use App\Models\Banner;
+use App\Models\Transaction;
 use App\Models\Concert;
 use App\Models\Venue;
 use App\Models\City;
@@ -11,6 +14,7 @@ use App\Models\PaymentMethod;
 use App\Models\GuestDetail;
 use App\Models\ConcertDetail;
 use App\Models\Catagory;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -27,13 +31,14 @@ class AdminController extends Controller
     }
 
     // ------------------------- ADMIN PROFILE ------------------------- //
-    
-        public function edit(Request $request): View{
+
+    public function edit(Request $request): View
+    {
         return view('admin.edit', [
             'user' => $request->user(),
         ]);
     }
-    
+
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -67,7 +72,7 @@ class AdminController extends Controller
 
 
     // ------------------------- GUEST ------------------------- //
-    
+
     public function guest()
     {
         $guests = Guest::all();
@@ -130,10 +135,36 @@ class AdminController extends Controller
         return redirect()->route('admin.guest');
     }
 
-    // ------------------------- GUEST END ------------------------- //
 
-    // ------------------------- Concert ------------------------- //
-    
+    public function transaction()
+    {
+        $transactions = Transaction::all();
+
+        return view('admin.transaction.transaction', ['transactions' => $transactions]);
+    }
+
+    public function paymentTr(Transaction $transaction)
+    {
+        return view('admin.transaction.payment', ['transaction' => $transaction]);
+    }
+
+    public function acceptPayment(Transaction $transaction)
+    {
+        $transaction->status = 'PAID';
+        $transaction->save();
+
+        return redirect()->route('admin.transaction');
+    }
+
+    public function declinePayment(Transaction $transaction)
+    {
+        $transaction->status = 'CANCELED';
+        $transaction->save();
+
+        return redirect()->route('admin.transaction');
+    }
+
+
     public function concert()
     {
         $concerts = Concert::all();
@@ -175,7 +206,7 @@ class AdminController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
             'short_desc' => 'required|string|max:255',
             'long_desc' => 'required|string|max:1000'
-            ]);
+        ]);
 
         $concert->name = $validatedData['name'];
         $concert->short_desc = $validatedData['short_desc'];
@@ -196,7 +227,7 @@ class AdminController extends Controller
         $concert->delete();
         return redirect()->route('admin.concert');
     }
-    
+
     // ------------------------- Concert END ------------------------- //
 
     // ------------------------- Venue ------------------------- //
@@ -212,7 +243,7 @@ class AdminController extends Controller
     public function addVenue()
     {
         $city_id = City::all();
-        return view('admin.venue.add', ['city_id'=>$city_id]);
+        return view('admin.venue.add', ['city_id' => $city_id]);
     }
 
     public function createVenue(Request $request)
@@ -231,8 +262,8 @@ class AdminController extends Controller
     {
         $city_id = City::all();
         $venue = Venue::where('id', $id)->get();
-        
-        return view('admin.venue.edit', ['venue' => $venue[0], 'city_id'=>$city_id]);
+
+        return view('admin.venue.edit', ['venue' => $venue[0], 'city_id' => $city_id]);
     }
 
     public function updateVenue(Venue $venue, Request $request)
@@ -242,7 +273,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:1000',
             'city_id' => 'required|integer'
-            ]);
+        ]);
 
         $venue->name = $validatedData['name'];
         $venue->address = $validatedData['address'];
@@ -257,9 +288,9 @@ class AdminController extends Controller
         $venue->delete();
         return redirect()->route('admin.venue');
     }
-    
+
     // ------------------------- Venue END ------------------------- //
-    
+
     // ------------------------- City ------------------------- //
 
     public function city()
@@ -294,7 +325,7 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            ]);
+        ]);
 
         $city->name = $validatedData['name'];
 
@@ -307,7 +338,7 @@ class AdminController extends Controller
         $city->delete();
         return redirect()->route('admin.city');
     }
-    
+
     // ------------------------- City END ------------------------- //
 
     // ------------------------- Payment method ------------------------- //
@@ -346,7 +377,7 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'payment' => 'required|string|max:255',
-            ]);
+        ]);
 
         $payment->payment = $validatedData['payment'];
 
@@ -359,7 +390,7 @@ class AdminController extends Controller
         $payment->delete();
         return redirect()->route('admin.payment');
     }
-    
+
     // ------------------------- Payment method END ------------------------- //
 
 
@@ -371,17 +402,21 @@ class AdminController extends Controller
         $concert_id = Concert::all();
         $guest_id = Guest::all();
 
-        return view('admin.guest_details.guest_details', ['guest_details' => $guest_details, 
-                                            'concert_id' => $concert_id, 
-                                            'guest_id' => $guest_id]);
+        return view('admin.guest_details.guest_details', [
+            'guest_details' => $guest_details,
+            'concert_id' => $concert_id,
+            'guest_id' => $guest_id
+        ]);
     }
 
     public function addGuestDetails()
     {
         $concert_id = Concert::all();
         $guest_id = Guest::all();
-        return view('admin.guest_details.add', ['concert_id' => $concert_id, 
-                                            'guest_id' => $guest_id]);
+        return view('admin.guest_details.add', [
+            'concert_id' => $concert_id,
+            'guest_id' => $guest_id
+        ]);
     }
 
     public function createGuestDetails(Request $request)
@@ -402,9 +437,11 @@ class AdminController extends Controller
         $concert_id = Concert::all();
         $guest_id = Guest::all();
         $guest_details = GuestDetail::where('id', $id)->get();
-        return view('admin.guest_details.edit', ['guest_details' => $guest_details[0],
-                                                'concert_id' => $concert_id, 
-                                                'guest_id' => $guest_id]);
+        return view('admin.guest_details.edit', [
+            'guest_details' => $guest_details[0],
+            'concert_id' => $concert_id,
+            'guest_id' => $guest_id
+        ]);
     }
 
     public function updateGuestDetails(GuestDetail $guest_details, Request $request)
@@ -414,12 +451,12 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'concert_id' => 'required|integer',
             'guest_id' => 'required|integer',
-            ]);
+        ]);
 
         $guest_details->concert_id = $validatedData['concert_id'];
         $guest_details->guest_id = $validatedData['guest_id'];
 
-    
+
         $guest_details->save();
         return redirect()->route('admin.guest_details');
     }
@@ -429,9 +466,9 @@ class AdminController extends Controller
         $guest_details->delete();
         return redirect()->route('admin.guest_details');
     }
-    
+
     // ------------------------- GUEST STAR DETAIL END ------------------------- //
-    
+
     // ------------------------- CONCERT DETAIL ------------------------- //
 
     public function concert_details()
@@ -440,17 +477,21 @@ class AdminController extends Controller
         $concert_id = Concert::all();
         $venue_id = Venue::all();
 
-        return view('admin.concert_details.concert_details', ['concert_details' => $concert_details, 
-                                                            'concert_id' => $concert_id, 
-                                                            'venue_id' => $venue_id]);
+        return view('admin.concert_details.concert_details', [
+            'concert_details' => $concert_details,
+            'concert_id' => $concert_id,
+            'venue_id' => $venue_id
+        ]);
     }
 
     public function addConcertDetails()
     {
         $concert_id = Concert::all();
         $venue_id = Venue::all();
-        return view('admin.concert_details.add', ['concert_id' => $concert_id, 
-                                                'venue_id' => $venue_id]);
+        return view('admin.concert_details.add', [
+            'concert_id' => $concert_id,
+            'venue_id' => $venue_id
+        ]);
     }
 
     public function createConcertDetails(Request $request)
@@ -476,9 +517,11 @@ class AdminController extends Controller
         $concert_id = Concert::all();
         $venue_id = Venue::all();
         $concert_details = ConcertDetail::where('id', $id)->get();
-        return view('admin.concert_details.edit', ['concert_details' => $concert_details[0],
-                                                'concert_id' => $concert_id, 
-                                                'venue_id' => $venue_id]);
+        return view('admin.concert_details.edit', [
+            'concert_details' => $concert_details[0],
+            'concert_id' => $concert_id,
+            'venue_id' => $venue_id
+        ]);
     }
 
     public function updateConcertDetails(ConcertDetail $concert_details, Request $request)
@@ -490,14 +533,14 @@ class AdminController extends Controller
             'concert_id' => 'required|integer',
             'venue_id' => 'required|integer',
             'map' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048'
-            ]);
+        ]);
 
         $concert_details->concert_id = $validatedData['concert_id'];
         $concert_details->venue_id = $validatedData['venue_id'];
 
         $mapPath = $request->file('map')->store('maps', 'public');
-        $concert_details->map = $mapPath;    
-    
+        $concert_details->map = $mapPath;
+
         $concert_details->save();
         return redirect()->route('admin.concert_details');
     }
@@ -507,9 +550,9 @@ class AdminController extends Controller
         $concert_details->delete();
         return redirect()->route('admin.concert_details');
     }
-    
+
     // ------------------------- CONCERT DETAIL END ------------------------- //
-    
+
     // ------------------------- CATEGORIES ------------------------- //
 
     public function categories()
@@ -520,9 +563,11 @@ class AdminController extends Controller
         $concert = Concert::all();
 
 
-        return view('admin.categories.categories', ['categories' => $categories, 
-                                                    'concert_details' => $concert_details,
-                                                    'concert' => $concert ]);
+        return view('admin.categories.categories', [
+            'categories' => $categories,
+            'concert_details' => $concert_details,
+            'concert' => $concert
+        ]);
     }
 
     public function addCategories()
@@ -534,7 +579,7 @@ class AdminController extends Controller
     public function createCategories(Request $request)
     {
         $concert_details = ConcertDetail::all();
-        
+
         $validatedData = $request->validate([
             'seat' => 'required|numeric',
             'code' => 'required|string|max:255',
@@ -553,29 +598,31 @@ class AdminController extends Controller
         $concert_details = ConcertDetail::all();
         $venue_id = Venue::all();
         $categories = Catagory::where('id', $id)->get();
-        return view('admin.concert_details.edit', ['categories' => $categories[0],
-                                                'concert_details' => $concert_details, 
-                                                'venue_id' => $venue_id]);
+        return view('admin.concert_details.edit', [
+            'categories' => $categories[0],
+            'concert_details' => $concert_details,
+            'venue_id' => $venue_id
+        ]);
     }
 
     public function updateCategories(Catagory $categories, Request $request)
     {
-        $concert_details = ConcertDetail::all();
-        $venue_id = Venue::all();
-        $validatedData = $request->validate([
-            'seat' => 'required|numeric',
-            'code' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'concert_details' => 'required|integer',
-            'venue_id' => 'required|integer',
-            'description' => 'required|string|max:1048',
-            ]);
+        // $concert_details = ConcertDetail::all();
+        // $venue_id = Venue::all();
+        // $validatedData = $request->validate([
+        //     'seat' => 'required|numeric',
+        //     'code' => 'required|string|max:255',
+        //     'price' => 'required|numeric',
+        //     'concert_details' => 'required|integer',
+        //     'venue_id' => 'required|integer',
+        //     'description' => 'required|string|max:1048',
+        // ]);
 
-        $concert_details->concert_details = $validatedData['concert_details'];
-        $concert_details->venue_id = $validatedData['venue_id']; 
-    
-        $categories->save();
-        return redirect()->route('admin.categories');
+        // $concert_details->concert_details = $validatedData['concert_details'];
+        // $concert_details->venue_id = $validatedData['venue_id'];
+
+        // $categories->save();
+        // return redirect()->route('admin.categories');
     }
 
     public function deleteCategories(Catagory $categories)
@@ -583,6 +630,30 @@ class AdminController extends Controller
         $categories->delete();
         return redirect()->route('admin.categories');
     }
-    
-    // ------------------------- CATEGORIES END ------------------------- //
+
+
+    private BannerController $bannerController;
+
+    public function __construct(BannerController $bc)
+    {
+        $this->bannerController = $bc;
+    }
+
+    public function banner()
+    {
+        $banners = $this->bannerController->getAllBanners();
+
+        return view('admin.banner.banner', ['banners' => $banners]);
+    }
+
+    public function addBanner()
+    {
+        return view('admin.banner.add');
+    }
+
+    public function editBanner($id)
+    {
+        $banner = Banner::where('id', $id)->get();
+        return view('admin.banner.edit', ['banner' => $banner[0]]);
+    }
 }

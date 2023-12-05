@@ -5,7 +5,11 @@ use App\Http\Controllers\ConcertController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-
+use App\Jobs\SendTicketMail;
+use App\Mail\PromotionMail;
+use App\Mail\TicketMail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +58,10 @@ Route::post('/concert/{detail:date}/buy/{category:id}', [
     TransactionController::class, 'store'
 ])->middleware(['auth', 'verified'])->name('ticket.create');
 
+Route::post('transaction-payment/{transaction:id}', [
+    TransactionController::class, 'transactionPayment'
+])->middleware(['auth', 'verified'])->name('ticket.payment');
+
 // --------- Users -------------- //
 
 Route::get('/transaction-histori', [
@@ -84,8 +92,9 @@ Route::middleware('auth')->group(function () {
 
 // -------- Admin ---------- //
 Route::middleware('admin')->group(function () {
+
     route::get('/admin/page', [AdminController::class, 'index'])->name('admin.welcomepage');
-    
+
     // -------- Profile ---------- //
     Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.edit');
     Route::patch('/admin/profile', [ProfileController::class, 'update'])->name('admin.update');
@@ -99,6 +108,18 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/guest/update/{guest:id}', [AdminController::class, 'updateGuest'])->name('admin.updateGuest');
     route::get('/admin/guest/delete/{guest:id}', [AdminController::class, 'deleteGuest'])->name('admin.deleteGuest');
 
+    // -------- Transaction ---------- //
+    route::get('/admin/transaction', [AdminController::class, 'transaction'])->name('admin.transaction');
+    route::get('/admin/paymentTr/{transaction:id}', [AdminController::class, 'paymentTr'])->name('admin.payment.tr');
+    route::get('/admin/payment-accept/{transaction:id}', [AdminController::class, 'acceptPayment'])->name('admin.acceptPayment');
+    route::get('/admin/payment-decline/{transaction:id}', [AdminController::class, 'declinePayment'])->name('admin.declinePayment');
+
+    // -------- Banner ---------- //
+    route::get('/admin/banner', [AdminController::class, 'banner'])->name('admin.banner');
+    route::get('/admin/banner/add', [AdminController::class, 'addBanner'])->name('admin.addBanner');
+    route::get('/admin/banner/edit/{id}', [AdminController::class, 'editBanner'])->name('admin.editBanner');
+    // route::post('/admin/banner/create', [AdminController::class, 'createBanner'])->name('admin.createBanner');
+
     // -------- Concert ---------- //
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
     route::get('/admin/concert/add', [AdminController::class, 'addConcert'])->name('admin.addConcert');
@@ -107,22 +128,22 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/concert/update/{concert:id}', [AdminController::class, 'updateConcert'])->name('admin.updateConcert');
     route::get('/admin/concert/delete/{concert:id}', [AdminController::class, 'deleteConcert'])->name('admin.deleteConcert');
     route::get('/admin/concert', [AdminController::class, 'concert'])->name('admin.concert');
-    
+
     // -------- Guest Star Details---------- //
     route::get('/admin/guest_details', [AdminController::class, 'guest_details'])->name('admin.guest_details');
     route::get('/admin/guest_details/add', [AdminController::class, 'addGuestDetails'])->name('admin.addGuestDetails');
     route::post('/admin/guest_details/create', [AdminController::class, 'createGuestDetails'])->name('admin.createGuestDetails');
     route::get('/admin/guest_details/edit/{id}', [AdminController::class, 'editGuestDetails'])->name('admin.editGuestDetails');
     route::post('/admin/guest_details/update/{guest_details:id}', [AdminController::class, 'updateGuestDetails'])->name('admin.updateGuestDetails');
-    route::get('/admin/guest_details/delete/{guest_details:id}', [AdminController::class, 'deleteGuestDetails'])->name('admin.deleteGuestDetails');    
-    
+    route::get('/admin/guest_details/delete/{guest_details:id}', [AdminController::class, 'deleteGuestDetails'])->name('admin.deleteGuestDetails');
+
     // -------- Concert Details---------- //
     route::get('/admin/concert_details', [AdminController::class, 'concert_details'])->name('admin.concert_details');
     route::get('/admin/concert_details/add', [AdminController::class, 'addConcertDetails'])->name('admin.addConcertDetails');
     route::post('/admin/concert_details/create', [AdminController::class, 'createConcertDetails'])->name('admin.createConcertDetails');
     route::get('/admin/concert_details/edit/{id}', [AdminController::class, 'editConcertDetails'])->name('admin.editConcertDetails');
     route::post('/admin/concert_details/update/{concert_details:id}', [AdminController::class, 'updateConcertDetails'])->name('admin.updateConcertDetails');
-    route::get('/admin/concert_details/delete/{concert_details:id}', [AdminController::class, 'deleteConcertDetails'])->name('admin.deleteConcertDetails');  
+    route::get('/admin/concert_details/delete/{concert_details:id}', [AdminController::class, 'deleteConcertDetails'])->name('admin.deleteConcertDetails');
 
     // -------- Venue ---------- //
     route::get('/admin/venue', [AdminController::class, 'venue'])->name('admin.venue');
@@ -141,7 +162,7 @@ Route::middleware('admin')->group(function () {
     route::post('/admin/city/update/{city:id}', [AdminController::class, 'updateCity'])->name('admin.updateCity');
     route::get('/admin/city/delete/{city:id}', [AdminController::class, 'deleteCity'])->name('admin.deleteCity');
     route::get('/admin/city', [AdminController::class, 'city'])->name('admin.city');
-    
+
     // -------- Payment Method ---------- //
     route::get('/admin/payment', [AdminController::class, 'payment'])->name('admin.payment');
     route::get('/admin/payment/add', [AdminController::class, 'addPayment'])->name('admin.addPayment');
@@ -162,6 +183,12 @@ Route::middleware('admin')->group(function () {
 });
 
 
+
+foreach (scandir($path = app_path('Http/Module')) as $dir) {
+    if (file_exists($filepath = "{$path}/{$dir}/Presentation/web.php")) {
+        require $filepath;
+    }
+};
 
 
 require __DIR__ . '/auth.php';
