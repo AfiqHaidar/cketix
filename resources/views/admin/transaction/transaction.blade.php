@@ -59,7 +59,7 @@
                                 @elseif ($transaction->status == 'CANCELED')
                                     <p>transaction canceled</p>
                                 @else
-                                <a href="{{ route('admin.payment', ['transaction' => $transaction ]) }}" class="font-medium  hover:underline">payment</a>     
+                                <a href="{{ route('admin.payment.tr', ['transaction' => $transaction ]) }}" class="font-medium  hover:underline">payment</a>     
                                 @endif   
                             </td>
                         </tr>

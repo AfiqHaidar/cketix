@@ -47,8 +47,6 @@ class SendConcertPromotion implements ShouldQueue
                 return $concert;
             });
 
-        dd($top[0]);
-
         $email = new PromotionMail($this->user, $top[0]);
         Mail::to($this->user->email)->send($email);
     }

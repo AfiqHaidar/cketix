@@ -8,7 +8,7 @@
      
      <div class="flex justify-evenly pt-28 ">
         
-        @include('components.admin.sidebar')
+        @include('components.sidebar')
      
      <div class="px-4 w-3/4">
         <div class="rounded-xl dark:border-gray-700">
