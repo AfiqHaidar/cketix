@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
 
         $users = User::all();
         foreach ($users as $user) {
-            $schedule->job(new SendConcertPromotion($user))->weekly();
+            $schedule->job(new SendConcertPromotion($user))->everyMinute();
         }
     }
 

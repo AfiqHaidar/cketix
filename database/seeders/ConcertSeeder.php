@@ -134,6 +134,7 @@ class ConcertSeeder extends Seeder
                 'map' => 'maps/m5.jpg'
             ],
 
+
         ];
 
         foreach ($concertDetails as $concertDetail) {

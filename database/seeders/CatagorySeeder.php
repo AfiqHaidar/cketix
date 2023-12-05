@@ -136,6 +136,38 @@ class CatagorySeeder extends Seeder
                 'venue_id' => '1',
                 'description' => 'Best price!'
             ],
+            [
+                'seat' => rand(50, 100),
+                'code' => 'CH1',
+                'price' => 5500000.00,
+                'concert_detail_id' => '4',
+                'venue_id' => '2',
+                'description' => 'VVIP with Backstage'
+            ],
+            [
+                'seat' => rand(50, 100),
+                'code' => 'CH2',
+                'price' => 4000000.00,
+                'concert_detail_id' => '4',
+                'venue_id' => '2',
+                'description' => 'Best View!'
+            ],
+            [
+                'seat' => rand(50, 100),
+                'code' => 'CH43',
+                'price' => 2000000.00,
+                'concert_detail_id' => '4',
+                'venue_id' => '2',
+                'description' => 'Comfy Seating'
+            ],
+            [
+                'seat' => rand(50, 100),
+                'code' => 'CH4',
+                'price' => 1500000.00,
+                'concert_detail_id' => '4',
+                'venue_id' => '2',
+                'description' => 'Best Value!'
+            ],
         ];
 
         foreach ($catagory as $cat) {
