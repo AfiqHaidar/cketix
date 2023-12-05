@@ -8,4 +8,5 @@ interface BannerRepositoryInterface
 {
     public function save(Banner $banner);
     public function getAllBanners();
+    public function deleteBanner($id);
 }

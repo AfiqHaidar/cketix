@@ -56,9 +56,9 @@
                     {{ $banner->image }}
                 </td>
                 <td class="flex justify-evenly items-center px-6 py-4 text-right">
-                    {{-- <a href="{{ route('admin.editGuest', ['id' => $banner->id])  }}" class="font-medium  hover:underline">Edit</a>
-                    <a href="{{ route('admin.deleteGuest', ['guest' => $banner]) }}" class="font-medium  hover:underline">Delete</a>
-                --}}
+                    <a href="{{ route('admin.editBanner', ['id' => $banner->id])  }}" class="font-medium  hover:underline">Edit</a>
+                    <a href="{{ route('admin.deleteBanner', ['id' => $banner->id]) }}" class="font-medium  hover:underline">Delete</a>
+               
                 </td>
             </tr>
             @endforeach

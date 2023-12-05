@@ -16,7 +16,7 @@ class BannerRepository implements BannerRepositoryInterface
                 'subheader' => $banner->subheader,
                 'image' => $banner->image,
             ],
-            'header'
+            'id'
         );
     }
 
@@ -24,5 +24,10 @@ class BannerRepository implements BannerRepositoryInterface
     {
         return DB::table('banners')->get();
         // You might want to transform the raw database results into Banner models here
+    }
+
+    public function deleteBanner($id)
+    {
+        DB::table('banners')->where('id', $id->id)->delete();
     }
 }

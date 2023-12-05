@@ -111,6 +111,7 @@ Route::middleware('admin')->group(function () {
 
     route::get('/admin/banner', [AdminController::class, 'banner'])->name('admin.banner');
     route::get('/admin/banner/add', [AdminController::class, 'addBanner'])->name('admin.addBanner');
+    route::get('/admin/banner/edit/{id}', [AdminController::class, 'editBanner'])->name('admin.editBanner');
     // route::post('/admin/banner/create', [AdminController::class, 'createBanner'])->name('admin.createBanner');
 });
 

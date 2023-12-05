@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Module\Banner\Domain\Model\Banner;
 use App\Http\Module\Banner\Presentation\Controller\BannerController;
 use App\Models\Guest;
+use App\Models\Banner;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -128,5 +128,11 @@ class AdminController extends Controller
     public function addBanner()
     {
         return view('admin.banner.add');
+    }
+
+    public function editBanner($id)
+    {
+        $banner = Banner::where('id', $id)->get();
+        return view('admin.banner.edit', ['banner' => $banner[0]]);
     }
 }
