@@ -30,7 +30,7 @@ class ConcertController extends Controller
 
         $topConcerts =  $this->getTopConcerts();
 
-        
+
         $banners = cache()->remember('banners', now()->addHours(1), function () {
             // If not cached, fetch banners and store them in the cache
             return $this->bannerController->getAllBanners();
@@ -89,7 +89,7 @@ class ConcertController extends Controller
         return view('concert.indexSearch', [
             'concerts' => $concerts,
         ]);
-    }
+    }
 
 
     public function show($id)

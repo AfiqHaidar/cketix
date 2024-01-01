@@ -12,7 +12,7 @@
      
      <div class="px-4 w-3/4">
         <div class="px-5 py-2 mx-auto my-3 hover:text-white bg-gray-300 hover:bg-white shadow-lg rounded-lg w-fit">
-            <a href=" {{ route('admin.addGuest') }}"  class="text-black">Add Guest</a>
+            <a href=" {{ route('admin.addGuest') }}"  class="text-black">Add Guest | Age barusan di input {{ $age }}</a>
         </div>
         
         <div class="rounded-xl dark:border-gray-700">

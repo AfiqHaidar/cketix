@@ -100,7 +100,12 @@ class AdminController extends Controller
         $guest->pquote = $validatedData['pquote'];
         $guest->save();
 
-        return redirect(route('admin.guest'));
+        // dd($request->age);
+
+        $guests = Guest::all();
+        return view('admin.guest.guest', ['guests' => $guests, 'age' => $request->age]);
+
+        // return redirect(route('admin.guest'));
     }
 
     public function editGuest($id)

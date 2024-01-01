@@ -54,6 +54,14 @@
                 @enderror
             </div>
 
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-white dark:text-white" for="age">Age</label>
+                <input min="18" type="number" id="age" name="age" class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg  block w-full p-2.5 " >
+                @error('age')
+                <p class="mt-1 text-sm text-red-600 dark:text-gray-200" id="file_input_help">{{ $message }}</p>
+                @enderror
+            </div>
+
              <div class="my-2 pt-10 flex justify-center">
                  <button type="submit" class="rounded-lg group w-full flex justify-center items-center bg-gray-500 px-3.5 py-2 font-com text-sm capitalize text-white shadow shadow-black/60 hover:bg-slate-50 hover:text-gray-800" >Add</button>
              </div>
